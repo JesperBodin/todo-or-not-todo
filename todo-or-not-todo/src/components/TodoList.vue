@@ -11,7 +11,7 @@ export default {
   },
   methods: {
     addTodo() {
-      if (this.newTodo.trim !== "") {
+      if (this.newTodo.trim() !== "") {
         this.todos.push({ id: Date.now(), text: this.newTodo });
         this.newTodo = "";
       }
