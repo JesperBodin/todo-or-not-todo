@@ -1,6 +1,6 @@
 <template>
   <li class="todo-item">
-    <button @click="remove(todo)" class="removeBtn">x</button>
+    <button @click="remove(id)" class="removeBtn">x</button>
     <div class="todo-cell due-date">
       <p>Deadline: {{ todo.dueDate }}</p>
     </div>
@@ -8,7 +8,7 @@
       <h3
         class="todo-text"
         :class="{ done: todo.done }"
-        @click="toggleDone(todo.id)"
+        @click="toggle(todo.id)"
       >
         {{ todo.text }}
       </h3>
@@ -17,6 +17,9 @@
 </template>
 
 <script>
+import { mapActions } from "pinia";
+import { todoStore } from "../stores/TodoStore";
+
 export default {
   props: {
     todo: {
@@ -36,6 +39,8 @@ export default {
   },
 
   methods: {
+    ...mapActions(todoStore, ["removeOneTodo", "toggleDone"]),
+
     removeTodo() {
       this.remove(this.todo);
     },

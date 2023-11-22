@@ -3,11 +3,7 @@
     <h1>TODO</h1>
   </header>
   <main>
-    <form @submit.prevent="add" class="todo-form">
-      <input v-model="newTodo" placeholder="Enter todo.." class="todo-input" />
-      <input v-model="dueDate" type="date" class="date-input" />
-      <button type="submit" class="addBtn">Add todo</button>
-    </form>
+    <TodoCreator @add="add" />
     <div class="button-container">
       <button @click="removeAll" class="removeAllBtn">Remove All</button>
       <button @click="sort" class="sortByLetterBtn">Sort</button>
@@ -20,7 +16,7 @@
         v-for="todo in activeTodos"
         :key="todo.id"
         :todo="todo"
-        :remove="remove"
+        :removeTodo="remove"
         :toggleDone="toggle"
       />
     </ul>
@@ -44,12 +40,12 @@
 import { todoStore } from "../stores/TodoStore";
 import { mapWritableState, mapActions } from "pinia";
 import TodoListItem from "./TodoListItem.vue";
-// import TodoCreator from "./TodoCreator.vue";
+import TodoCreator from "./TodoCreator.vue";
 
 export default {
   components: {
     TodoListItem,
-    // TodoCreator,
+    TodoCreator,
   },
   computed: {
     ...mapWritableState(todoStore, ["newTodo", "todos", "hideDone", "dueDate"]),
@@ -74,8 +70,8 @@ export default {
       "sortByDate",
       "toggleDone",
     ]),
-    add() {
-      this.addTodo();
+    add(task) {
+      this.addTodo(task);
     },
 
     remove(todo) {
@@ -107,31 +103,6 @@ header {
 
 button:hover {
   text-decoration: underline;
-}
-
-.todo-form {
-  margin-bottom: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.todo-input {
-  padding: 8px;
-  margin-right: 8px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  font-size: 24px;
-  width: 300px;
-  height: 30px;
-}
-.date-input {
-  padding: 8px;
-  margin-right: 8px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  font-size: 24px;
-  height: 30px;
 }
 
 .addBtn,
