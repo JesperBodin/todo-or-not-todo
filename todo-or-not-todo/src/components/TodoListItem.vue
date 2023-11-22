@@ -32,7 +32,7 @@ export default {
       required: true,
     },
 
-    toggleDone: {
+    toggle: {
       type: Function,
       required: true,
     },

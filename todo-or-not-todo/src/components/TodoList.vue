@@ -16,8 +16,8 @@
         v-for="todo in activeTodos"
         :key="todo.id"
         :todo="todo"
-        :removeTodo="remove"
-        :toggleDone="toggle"
+        :remove="remove"
+        :toggle="toggle"
       />
     </ul>
     <!-- DONE TODOS -->
@@ -30,7 +30,7 @@
         :key="todo.id"
         :todo="todo"
         :remove="remove"
-        :toggleDone="toggle"
+        :toggle="toggle"
       />
     </ul>
   </main>
