@@ -1,74 +1,116 @@
+<template>
+  <header>
+    <h1>TODO</h1>
+  </header>
+  <main>
+    <form @submit.prevent="add" class="todo-form">
+      <input v-model="newTodo" placeholder="Enter todo.." class="todo-input" />
+      <input v-model="dueDate" type="date" class="date-input" />
+      <button type="submit" class="addBtn">Add todo</button>
+    </form>
+    <div class="button-container">
+      <button @click="removeAll" class="removeAllBtn">Remove All</button>
+      <button @click="sort" class="sortByLetterBtn">Sort</button>
+      <button @click="hideDone = !hideDone" class="hideDoneBtn">
+        {{ hideDone ? "Show done" : "Hide done" }}
+      </button>
+    </div>
+    <ul class="todo-list">
+      <TodoListItem
+        v-for="todo in activeTodos"
+        :key="todo.id"
+        :todo="todo"
+        :remove="remove"
+        :toggleDone="toggle"
+      />
+    </ul>
+    <!-- DONE TODOS -->
+    <header>
+      <h1 v-if="!hideDone">TODON'T</h1>
+    </header>
+    <ul v-if="!hideDone" class="todo-list">
+      <TodoListItem
+        v-for="todo in completedTodos"
+        :key="todo.id"
+        :todo="todo"
+        :remove="remove"
+        :toggleDone="toggle"
+      />
+    </ul>
+  </main>
+</template>
+
 <script>
+import { todoStore } from "../stores/TodoStore";
+import { mapWritableState, mapActions } from "pinia";
+import TodoListItem from "./TodoListItem.vue";
+// import TodoCreator from "./TodoCreator.vue";
+
 export default {
-  data() {
-    return {
-      newTodo: "",
-      todos: [
-        { id: Date.now(), text: "Make a todo-list" },
-        { id: Date.now(), text: "Make the todo-list cool" },
-      ],
-    };
+  components: {
+    TodoListItem,
+    // TodoCreator,
   },
-  methods: {
-    addTodo() {
-      if (this.newTodo.trim() !== "") {
-        this.todos.push({ id: Date.now(), text: this.newTodo });
-        this.newTodo = "";
-      }
+  computed: {
+    ...mapWritableState(todoStore, ["newTodo", "todos", "hideDone", "dueDate"]),
+
+    filteredTodos() {
+      return this.hideDone ? this.todos.filter((t) => !t.done) : this.todos;
     },
 
-    removeTodo(todo) {
-      const index = this.todos.indexOf(todo);
-      if (index !== -1) {
-        this.todos.splice(index, 1);
-      }
+    activeTodos() {
+      return this.todos.filter((todo) => !todo.done);
+    },
+    completedTodos() {
+      return this.todos.filter((todo) => todo.done);
+    },
+  },
+
+  methods: {
+    ...mapActions(todoStore, [
+      "addTodo",
+      "removeOneTodo",
+      "removeAllTodos",
+      "sortByDate",
+      "toggleDone",
+    ]),
+    add() {
+      this.addTodo();
+    },
+
+    remove(todo) {
+      this.removeOneTodo(todo);
     },
 
     removeAll() {
-      this.todos = [];
+      this.removeAllTodos();
     },
 
-    sortByLetter() {
-      this.todos.sort((a, b) => {
-        const todoA = a.text.toLowerCase();
-        const todoB = b.text.toLowerCase();
-        if (todoA < todoB) return -1;
-        if (todoA > todoB) return 1;
-        return 0;
-      });
+    sort() {
+      this.sortByDate();
+    },
+    toggle(id) {
+      this.toggleDone(id);
     },
   },
 };
 </script>
 
-<template>
-  <main>
-    <form @submit.prevent="addTodo" class="todo-form">
-      <input v-model="newTodo" placeholder="Enter todo.." class="todo-input" />
-      <button type="submit" class="addBtn">Add todo</button>
-    </form>
-    <button @click="removeAll" class="removeAllBtn">Remove All</button>
-    <button @click="sortByLetter" class="sortByLetterBtn">Sort</button>
-    <ul class="todo-list">
-      <li v-for="todo in todos" :key="todo.id" class="todo-item">
-        <button @click="removeTodo(todo)" class="removeBtn">x</button>
-        <br />
-        <h3 class="todo-text">{{ todo.text }}</h3>
-      </li>
-    </ul>
-  </main>
-</template>
-
 <style scoped>
-main {
+main,
+header {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
 
+button:hover {
+  text-decoration: underline;
+}
+
 .todo-form {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -81,11 +123,20 @@ main {
   border-radius: 5px;
   font-size: 24px;
   width: 300px;
-  height: 40px;
+  height: 30px;
+}
+.date-input {
+  padding: 8px;
+  margin-right: 8px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 24px;
+  height: 30px;
 }
 
 .addBtn,
 .removeAllBtn,
+.hideDoneBtn,
 .sortByLetterBtn {
   background-color: #4caf50;
   color: #ffffff;
@@ -98,7 +149,9 @@ main {
   height: 50px;
 }
 
-.removeAllBtn {
+.removeAllBtn,
+.sortByLetterBtn,
+.hideDoneBtn {
   background-color: #ff0000;
   padding: 0px 0px;
   height: 25px;
@@ -106,9 +159,12 @@ main {
 
 .sortByLetterBtn {
   background-color: blue;
-  padding: 0px 0px;
-  height: 25px;
 }
+
+.hideDoneBtn {
+  background-color: purple;
+}
+
 .todo-form {
   margin-bottom: 20px;
   display: flex;
@@ -121,32 +177,5 @@ main {
   padding: 10px;
   list-style: none;
   margin: 0;
-}
-
-.todo-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border: 1px solid #000000;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 5px;
-  font-size: 24px;
-  height: 50px;
-  width: 500px;
-}
-
-.todo-text {
-  flex-grow: 1;
-  margin-left: 10px;
-}
-
-.removeBtn {
-  background-color: #ff0000;
-  color: #ffffff;
-  border: none;
-  border-radius: 5px;
-  padding: 5px 10px;
-  cursor: pointer;
 }
 </style>

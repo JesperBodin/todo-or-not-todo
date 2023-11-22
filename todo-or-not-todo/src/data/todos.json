@@ -1,0 +1,8 @@
+{
+  "todos": [
+    { "text": "Make a todo-list", "dueDate": 20231224, "done": false },
+    { "text": "Buy groceries", "dueDate": 20231130, "done": true },
+    { "text": "Read a book", "dueDate": 20231215, "done": false },
+    { "text": "Go for a run", "dueDate": 20231205, "done": false }
+  ]
+}
