@@ -6,8 +6,8 @@ export const todoStore = defineStore("todo", {
     hideDone: false,
     dueDate: null,
     todos: [],
-    completedTodos: [],
     activeTodos: [],
+    completedTodos: [],
   }),
 
   // actions
