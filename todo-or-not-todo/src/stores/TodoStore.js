@@ -7,17 +7,6 @@ export const todoStore = defineStore("todo", {
     todos: [],
   }),
 
-  getters: {
-    activeTodos() {
-      return this.activeTodos;
-    },
-
-    completedTodos() {
-      return this.completedTodos;
-    },
-  },
-
-  // actions
   actions: {
     addTodo(newTodo) {
       this.todos.push(newTodo);

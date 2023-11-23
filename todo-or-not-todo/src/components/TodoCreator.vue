@@ -11,7 +11,7 @@ export default {
   data() {
     return {
       newTodo: "",
-      dueDate: "", // Define newTodo here
+      dueDate: "",
     };
   },
   methods: {

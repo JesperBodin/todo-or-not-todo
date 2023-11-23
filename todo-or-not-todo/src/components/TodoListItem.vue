@@ -23,16 +23,6 @@ export default {
       type: Object,
       required: true,
     },
-
-    // remove: {
-    //   type: Function,
-    //   required: true,
-    // },
-
-    // toggleDone: {
-    //   type: Function,
-    //   required: true,
-    // },
   },
 
   methods: {
