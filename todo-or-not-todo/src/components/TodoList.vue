@@ -3,11 +3,7 @@
     <h1>TODO</h1>
   </header>
   <main>
-    <form @submit.prevent="add" class="todo-form">
-      <input v-model="newTodo" placeholder="Enter todo.." class="todo-input" />
-      <input v-model="dueDate" type="date" class="date-input" />
-      <button type="submit" class="addBtn">Add todo</button>
-    </form>
+    <TodoCreator @add="add" />
     <div class="button-container">
       <button @click="removeAll" class="removeAllBtn">Remove All</button>
       <button @click="sort" class="sortByLetterBtn">Sort</button>
@@ -44,12 +40,12 @@
 import { todoStore } from "../stores/TodoStore";
 import { mapWritableState, mapActions } from "pinia";
 import TodoListItem from "./TodoListItem.vue";
-// import TodoCreator from "./TodoCreator.vue";
+import TodoCreator from "./TodoCreator.vue";
 
 export default {
   components: {
     TodoListItem,
-    // TodoCreator,
+    TodoCreator,
   },
   computed: {
     ...mapWritableState(todoStore, ["newTodo", "todos", "hideDone", "dueDate"]),
@@ -74,12 +70,12 @@ export default {
       "sortByDate",
       "toggleDone",
     ]),
-    add() {
-      this.addTodo();
+    add(todo) {
+      this.addTodo(todo);
     },
 
-    remove(todo) {
-      this.removeOneTodo(todo);
+    remove(id) {
+      this.removeOneTodo(id);
     },
 
     removeAll() {

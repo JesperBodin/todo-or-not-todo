@@ -1,6 +1,6 @@
 <template>
   <li class="todo-item">
-    <button @click="remove(todo)" class="removeBtn">x</button>
+    <button @click="remove" class="removeBtn">x</button>
     <div class="todo-cell due-date">
       <p>Deadline: {{ todo.dueDate }}</p>
     </div>
@@ -10,7 +10,7 @@
         :class="{ done: todo.done }"
         @click="toggleDone(todo.id)"
       >
-        {{ todo.text }}
+        {{ todo.newTodo }}
       </h3>
     </div>
   </li>
