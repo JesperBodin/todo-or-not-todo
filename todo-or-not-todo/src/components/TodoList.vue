@@ -16,8 +16,8 @@
         v-for="todo in activeTodos"
         :key="todo.id"
         :todo="todo"
-        :remove="remove"
-        :toggleDone="toggle"
+        @remove="remove"
+        @toggleDone="toggle"
       />
     </ul>
     <!-- DONE TODOS -->
@@ -29,8 +29,8 @@
         v-for="todo in completedTodos"
         :key="todo.id"
         :todo="todo"
-        :remove="remove"
-        :toggleDone="toggle"
+        @remove="remove"
+        @toggleDone="toggle"
       />
     </ul>
   </main>
@@ -70,12 +70,14 @@ export default {
       "sortByDate",
       "toggleDone",
     ]),
+
     add(todo) {
       this.addTodo(todo);
     },
 
-    remove(id) {
-      this.removeOneTodo(id);
+    remove(todo) {
+      console.log("Clicking the remove button in parent");
+      this.removeOneTodo(todo);
     },
 
     removeAll() {

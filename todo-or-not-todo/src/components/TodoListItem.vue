@@ -1,6 +1,6 @@
 <template>
   <li class="todo-item">
-    <button @click="remove" class="removeBtn">x</button>
+    <button @click="removeTodo" class="removeBtn">x</button>
     <div class="todo-cell due-date">
       <p>Deadline: {{ todo.dueDate }}</p>
     </div>
@@ -24,24 +24,24 @@ export default {
       required: true,
     },
 
-    remove: {
-      type: Function,
-      required: true,
-    },
+    // remove: {
+    //   type: Function,
+    //   required: true,
+    // },
 
-    toggleDone: {
-      type: Function,
-      required: true,
-    },
+    // toggleDone: {
+    //   type: Function,
+    //   required: true,
+    // },
   },
 
   methods: {
     removeTodo() {
-      this.remove(this.todo);
+      this.$emit("remove", this.todo);
     },
 
-    toggleTodo() {
-      this.toggleDone(this.todo.id);
+    toggleDone() {
+      this.$emit("toggleDone", this.todo.id);
     },
   },
 };

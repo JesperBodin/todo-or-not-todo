@@ -7,19 +7,20 @@
 </template>
 
 <script>
-import { mapWritableState, mapActions } from "pinia";
-import { todoStore } from "../stores/TodoStore";
-
 export default {
-  computed: {
-    ...mapWritableState(todoStore, ["newTodo", "todos", "hideDone", "dueDate"]),
+  data() {
+    return {
+      newTodo: "",
+      dueDate: "", // Define newTodo here
+    };
   },
   methods: {
-    ...mapActions(todoStore, ["addTodo"]),
     add() {
-      this.$emit("add", { newTodo: this.newTodo, dueDate: this.dueDate });
-      this.newTodo = "";
-      this.dueDate = "";
+      this.$emit("add", {
+        id: Date.now(),
+        newTodo: this.newTodo,
+        dueDate: this.dueDate,
+      });
     },
   },
 };
