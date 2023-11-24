@@ -111,12 +111,17 @@ export default {
   text-decoration: line-through;
 }
 
-.removeBtn {
+.removeBtn,
+.editBtn {
   background-color: #ff0000;
   color: #ffffff;
   border: none;
   border-radius: 5px;
   padding: 5px 10px;
   cursor: pointer;
+}
+
+.editBtn {
+  background-color: green;
 }
 </style>
