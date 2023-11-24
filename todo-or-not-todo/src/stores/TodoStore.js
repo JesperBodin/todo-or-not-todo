@@ -5,6 +5,8 @@ export const todoStore = defineStore("todo", {
     newTodo: "",
     dueDate: null,
     todos: [],
+    selectedTodo: null,
+    isEditing: null,
   }),
 
   actions: {
@@ -43,6 +45,10 @@ export const todoStore = defineStore("todo", {
       if (todo) {
         todo.done = !todo.done;
       }
+    },
+
+    editTodo() {
+      this.todos;
     },
   },
 });

@@ -18,8 +18,12 @@
         :todo="todo"
         @remove="remove"
         @toggleDone="toggle"
+        @save-edited-todo="save"
       />
     </ul>
+    <div v-if="selectedTodo">
+      <input type="text" v-model="selectedTodo.newTodo" />
+    </div>
     <!-- DONE TODOS -->
     <header>
       <h1 v-if="!hideDone">TODON'T</h1>
@@ -31,6 +35,7 @@
         :todo="todo"
         @remove="remove"
         @toggleDone="toggle"
+        @save-edited-todo="save"
       />
     </ul>
   </main>
@@ -38,7 +43,7 @@
 
 <script>
 import { todoStore } from "../stores/TodoStore";
-import { mapWritableState, mapActions } from "pinia";
+import { mapState, mapWritableState, mapActions } from "pinia";
 import TodoListItem from "./TodoListItem.vue";
 import TodoCreator from "./TodoCreator.vue";
 
@@ -48,7 +53,14 @@ export default {
     TodoCreator,
   },
   computed: {
-    ...mapWritableState(todoStore, ["newTodo", "todos", "hideDone", "dueDate"]),
+    ...mapState(todoStore, ["selectedTodo"]),
+    ...mapWritableState(todoStore, [
+      "newTodo",
+      "todos",
+      "hideDone",
+      "dueDate",
+      "selectedTodo",
+    ]),
 
     filteredTodos() {
       return this.hideDone ? this.todos.filter((t) => !t.done) : this.todos;
@@ -69,6 +81,8 @@ export default {
       "removeAllTodos",
       "sortByDate",
       "toggleDone",
+      "editTodo",
+      // "savedTodo",
     ]),
 
     add(todo) {
@@ -89,6 +103,18 @@ export default {
     },
     toggle(id) {
       this.toggleDone(id);
+    },
+    edit(todo) {
+      console.log("Edit event received in parent", todo);
+      this.selectedTodo = { ...todo };
+    },
+    save({ id, newTodo }) {
+      console.log("saving edited todo", id, newTodo);
+      const index = this.todos.findIndex((todo) => todo.id === id);
+      if (index !== -1) {
+        this.todos[index].newTodo = newTodo;
+        this.editTodo(this.todos[index]);
+      }
     },
   },
 };
