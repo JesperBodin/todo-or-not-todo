@@ -1,14 +1,19 @@
 <template>
   <header>
-    <h1>TODO</h1>
+    <h1>{{ $t("todo") }}</h1>
   </header>
   <main>
     <TodoCreator @add="add" />
     <div class="button-container">
-      <button @click="removeAll" class="removeAllBtn">Remove All</button>
-      <button @click="sort" class="sortByLetterBtn">Sort</button>
+      <button @click="removeAll" class="removeAllBtn">
+        {{ $t("removeAll") }}
+      </button>
+      <button @click="sort" class="sortByLetterBtn">{{ $t("sort") }}</button>
       <button @click="hideDone = !hideDone" class="hideDoneBtn">
-        {{ hideDone ? "Show done" : "Hide done" }}
+        {{ $t(hideDone ? "showDone" : "hideDone") }}
+      </button>
+      <button class="languageBtn" @click="toggleLocale">
+        {{ $t("language") }}
       </button>
     </div>
     <ul class="todo-list">
@@ -24,9 +29,12 @@
     <div v-if="selectedTodo">
       <input type="text" v-model="selectedTodo.newTodo" />
     </div>
+    <div v-if="selectedTodo">
+      <input type="date" v-model="selectedTodo.dueDate" />
+    </div>
     <!-- DONE TODOS -->
     <header>
-      <h1 v-if="!hideDone">TODON'T</h1>
+      <h1 v-if="!hideDone">{{ $t("done") }}</h1>
     </header>
     <ul v-if="!hideDone" class="todo-list">
       <TodoListItem
@@ -82,7 +90,6 @@ export default {
       "sortByDate",
       "toggleDone",
       "editTodo",
-      // "savedTodo",
     ]),
 
     add(todo) {
@@ -108,13 +115,19 @@ export default {
       console.log("Edit event received in parent", todo);
       this.selectedTodo = { ...todo };
     },
-    save({ id, newTodo }) {
-      console.log("saving edited todo", id, newTodo);
+    save({ id, newTodo, dueDate }) {
+      console.log("saving edited todo", id, newTodo, dueDate);
       const index = this.todos.findIndex((todo) => todo.id === id);
       if (index !== -1) {
         this.todos[index].newTodo = newTodo;
+        this.todos[index].dueDate = dueDate;
         this.editTodo(this.todos[index]);
       }
+    },
+
+    toggleLocale() {
+      this.currentLocale = this.currentLocale === "en" ? "sv" : "en";
+      this.$i18n.locale = this.currentLocale;
     },
   },
 };
@@ -161,7 +174,8 @@ button:hover {
 .addBtn,
 .removeAllBtn,
 .hideDoneBtn,
-.sortByLetterBtn {
+.sortByLetterBtn,
+.languageBtn {
   background-color: #4caf50;
   color: #ffffff;
   border: none;
@@ -175,7 +189,8 @@ button:hover {
 
 .removeAllBtn,
 .sortByLetterBtn,
-.hideDoneBtn {
+.hideDoneBtn,
+.languageBtn {
   background-color: #ff0000;
   padding: 0px 0px;
   height: 25px;
@@ -187,6 +202,10 @@ button:hover {
 
 .hideDoneBtn {
   background-color: purple;
+}
+
+.languageBtn {
+  background-color: pink;
 }
 
 .todo-form {

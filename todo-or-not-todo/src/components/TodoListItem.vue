@@ -2,8 +2,11 @@
   <li class="todo-item" :class="{ editing: editing }">
     <button @click="removeTodo" class="removeBtn">x</button>
     <button @click="editTodo" class="editBtn">E</button>
-    <div class="todo-cell due-date">
-      <p>Deadline: {{ todo.dueDate }}</p>
+    <div v-if="!editing" class="todo-cell due-date">
+      <p>{{ $t("deadline") }} {{ todo.dueDate }}</p>
+    </div>
+    <div v-if="editing" class="todo-date">
+      <input type="date" v-model="editedDate" @keydown.enter="saveEditedTodo" />
     </div>
     <div v-if="!editing" class="todo-cell text">
       <h3
@@ -15,11 +18,7 @@
       </h3>
     </div>
     <div v-if="editing" class="todo-text">
-      <input
-        v-model="editedText"
-        @blur="saveEditedTodo"
-        @keydown.enter="saveEditedTodo"
-      />
+      <input v-model="editedText" @keydown.enter="saveEditedTodo" />
     </div>
   </li>
 </template>
@@ -30,6 +29,7 @@ export default {
     return {
       editing: false,
       editedText: this.todo.newTodo,
+      editedDate: this.todo.dueDate,
     };
   },
 
@@ -53,14 +53,22 @@ export default {
       console.log("edit button clicked");
       this.$emit("edit-todo", this.todo);
       this.editing = true;
+      this.editDate = true;
+    },
+
+    stopEditTodo() {
+      this.editing = true;
+      this.editDate = true;
     },
 
     saveEditedTodo() {
       this.$emit("save-edited-todo", {
         id: this.todo.id,
         newTodo: this.editedText,
+        dueDate: this.editedDate,
       });
       this.editing = false;
+      this.editDate = false;
     },
   },
 };

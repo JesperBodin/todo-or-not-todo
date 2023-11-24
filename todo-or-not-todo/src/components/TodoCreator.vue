@@ -2,7 +2,7 @@
   <form @submit.prevent="add" class="todo-form">
     <input v-model="newTodo" placeholder="Enter todo.." class="todo-input" />
     <input v-model="dueDate" type="date" class="date-input" />
-    <button type="submit" class="addBtn">Add todo</button>
+    <button type="submit" class="addBtn">{{ $t("add") }}</button>
   </form>
 </template>
 
