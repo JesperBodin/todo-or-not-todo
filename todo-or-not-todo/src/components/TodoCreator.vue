@@ -1,8 +1,8 @@
 <template>
-  <form @submit.prevent="add" class="todo-form">
-    <input v-model="newTodo" placeholder="Enter todo.." class="todo-input" />
-    <input v-model="dueDate" type="date" class="date-input" />
-    <button type="submit" class="addBtn">{{ $t("add") }}</button>
+  <form @submit.prevent="add" class="todo-form" action="/action_page.php">
+    <input v-model="newTodo" placeholder="Enter todo.." class="todo-input form-control" />
+    <input v-model="dueDate" type="date" class="date-input form-control " />
+    <button type="submit" class="btn btn-primary text-nowrap"><i class="bi bi-plus-lg"></i></button>
   </form>
 </template>
 
@@ -26,4 +26,7 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+
+
+</style>

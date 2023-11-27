@@ -1,52 +1,83 @@
 <template>
-  <header>
-    <h1>{{ $t("todo") }}</h1>
-  </header>
-  <main>
-    <TodoCreator @add="add" />
-    <div class="button-container">
-      <button @click="removeAll" class="removeAllBtn">
-        {{ $t("removeAll") }}
-      </button>
-      <button @click="sort" class="sortByLetterBtn">{{ $t("sort") }}</button>
-      <button @click="hideDone = !hideDone" class="hideDoneBtn">
-        {{ $t(hideDone ? "showDone" : "hideDone") }}
-      </button>
-      <button class="languageBtn" @click="toggleLocale">
-        {{ $t("language") }}
-      </button>
-    </div>
-    <ul class="todo-list">
-      <TodoListItem
-        v-for="todo in activeTodos"
-        :key="todo.id"
-        :todo="todo"
-        @remove="remove"
-        @toggleDone="toggle"
-        @save-edited-todo="save"
-      />
-    </ul>
-    <div v-if="selectedTodo">
-      <input type="text" v-model="selectedTodo.newTodo" />
-    </div>
-    <div v-if="selectedTodo">
-      <input type="date" v-model="selectedTodo.dueDate" />
-    </div>
-    <!-- DONE TODOS -->
-    <header>
-      <h1 v-if="!hideDone">{{ $t("done") }}</h1>
-    </header>
-    <ul v-if="!hideDone" class="todo-list">
-      <TodoListItem
-        v-for="todo in completedTodos"
-        :key="todo.id"
-        :todo="todo"
-        @remove="remove"
-        @toggleDone="toggle"
-        @save-edited-todo="save"
-      />
-    </ul>
-  </main>
+  <div class="bg-image" 
+     style="background-image: url('https://mdbootstrap.com/img/Photos/Others/images/76.jpg');
+            height: 100vh">
+  <div class="container mx auto">
+    <!-- <header class="mb-4">
+      <h2>{{ $t("todo") }}</h2>
+    </header> -->
+    <main >
+      <TodoCreator @add="add" class="mt-5"/>
+      <div class="btn-group-lg mb-3">
+        <button @click="removeAll" class="btn btn-primary btn-danger me-2">
+          {{ $t("removeAll") }}
+        </button>
+        <button @click="sort" class="btn btn-primary me-2">{{ $t("sort") }}</button>
+        <button @click="hideDone = !hideDone" class="btn btn-primary me-2">
+          {{ $t(hideDone ? "showDone" : "hideDone") }}
+        </button>
+        <button class="btn btn-primary me-2" @click="toggleLocale">
+          {{ $t("language") }}
+        </button>
+      </div>
+      <table class="table table-striped table-bordered table-responsive">
+        <thead>
+            <tr>
+              <th colspan="4" class="text-center">{{ $t("activeTable") }}</th>
+            </tr>
+          </thead>
+        <thead>
+          <tr>
+            <th class="text-center">{{ $t("dueDate") }}</th>
+            <th class="text-center">{{ $t("todoText") }}</th>
+            <th class="text-center">{{ $t("edit") }}</th>
+            <th class="text-center">{{ $t("remove") }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <TodoListItem
+            v-for="todo in activeTodos"
+            :key="todo.id"
+            :todo="todo"
+            @remove="remove"
+            @toggleDone="toggle"
+            @edit-todo="edit"
+            @save-edited-todo="save"
+          />
+        </tbody>
+      </table>
+      <!-- DONE TODOS -->
+      <!-- <header class="mb-4">
+        <h2 v-if="!hideDone">{{ $t("done") }}</h2>
+      </header> -->
+      <table v-if="!hideDone" class="table table-striped table-bordered table-responsive">
+        <thead>
+            <tr>
+              <th colspan="4" class="text-center">{{ $t("completedTable") }}</th>
+            </tr>
+          </thead>
+        <thead>
+          <tr>
+            <th class="text-center">{{ $t("dueDate") }}</th>
+            <th class="text-center">{{ $t("todoText") }}</th>
+            <th class="text-center">{{ $t("edit") }}</th>
+            <th class="text-center">{{ $t("remove") }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <TodoListItem
+            v-for="todo in completedTodos"
+            :key="todo.id"
+            :todo="todo"
+            @remove="remove"
+            @toggleDone="toggle"
+            @save-edited-todo="save"
+          />
+        </tbody>
+      </table>
+    </main>
+  </div>
+  </div>
 </template>
 
 <script>
@@ -134,91 +165,23 @@ export default {
 </script>
 
 <style scoped>
-main,
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 header {
   display: flex;
   justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
-button:hover {
-  text-decoration: underline;
-}
-
-.todo-form {
-  margin-bottom: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.todo-input {
-  padding: 8px;
-  margin-right: 8px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  font-size: 24px;
-  width: 300px;
-  height: 30px;
-}
-.date-input {
-  padding: 8px;
-  margin-right: 8px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  font-size: 24px;
-  height: 30px;
-}
-
-.addBtn,
-.removeAllBtn,
-.hideDoneBtn,
-.sortByLetterBtn,
-.languageBtn {
-  background-color: #4caf50;
-  color: #ffffff;
-  border: none;
-  border-radius: 5px;
-  padding: 8px 12px;
-  cursor: pointer;
-  font-size: 16px;
-  width: 100px;
-  height: 50px;
-}
-
-.removeAllBtn,
-.sortByLetterBtn,
-.hideDoneBtn,
-.languageBtn {
-  background-color: #ff0000;
-  padding: 0px 0px;
-  height: 25px;
-}
-
-.sortByLetterBtn {
-  background-color: blue;
-}
-
-.hideDoneBtn {
-  background-color: purple;
-}
-
-.languageBtn {
-  background-color: pink;
-}
-
-.todo-form {
   margin-bottom: 20px;
+}
+
+
+.todo-form {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.todo-list {
-  background-color: beige;
-  padding: 10px;
-  list-style: none;
-  margin: 0;
+  margin-bottom: 20px;
 }
 </style>

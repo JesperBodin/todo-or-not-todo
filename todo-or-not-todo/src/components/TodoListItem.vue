@@ -1,26 +1,30 @@
 <template>
-  <li class="todo-item" :class="{ editing: editing }">
-    <button @click="removeTodo" class="removeBtn">x</button>
-    <button @click="editTodo" class="editBtn">E</button>
-    <div v-if="!editing" class="todo-cell due-date">
-      <p>{{ $t("deadline") }} {{ todo.dueDate }}</p>
-    </div>
-    <div v-if="editing" class="todo-date">
-      <input type="date" v-model="editedDate" @keydown.enter="saveEditedTodo" />
-    </div>
-    <div v-if="!editing" class="todo-cell text">
-      <h3
-        class="todo-text"
-        :class="{ done: todo.done }"
-        @click="toggleDone(todo.id)"
-      >
-        {{ todo.newTodo }}
-      </h3>
-    </div>
-    <div v-if="editing" class="todo-text">
-      <input v-model="editedText" @keydown.enter="saveEditedTodo" />
-    </div>
-  </li>
+  <tr :class="{ editing: editing }">
+    <td>
+      <div v-if="!editing" class="todo-cell due-date">
+        <h5 class="mb-0">{{ $t("deadline") }} {{ todo.dueDate }}</h5>
+      </div>
+      <div v-if="editing" class="todo-date">
+        <input type="date" v-model="editedDate" @keydown.enter="saveEditedTodo" class="form-control" />
+      </div>
+    </td>
+    <td>
+      <div v-if="!editing">
+        <h5 class="todo-text" style="cursor: pointer;" :class="{ done: todo.done }" @click="toggleDone(todo.id)">
+          {{ todo.newTodo }}
+        </h5>
+      </div>
+      <div v-if="editing" class="todo-text">
+        <input v-model="editedText" @keydown.enter="saveEditedTodo" class="form-control" />
+      </div>
+    </td>
+    <td class="text-center">
+      <button @click="editTodo" class="editBtn btn btn-warning"><i class="bi bi-pencil-fill"></i></button>
+    </td>
+    <td class="text-center">
+      <button @click="removeTodo" class="removeBtn btn btn-danger"><i class="bi bi-trash3"></i></button>
+    </td>
+  </tr>
 </template>
 
 <script>
@@ -75,53 +79,4 @@ export default {
 </script>
 
 <style scoped>
-.todo-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  cursor: pointer;
-  border: 1px solid #000000;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 5px;
-  font-size: 24px;
-  height: 50px;
-  width: 500px;
-}
-
-.todo-text {
-  flex-grow: 1;
-  margin-left: 10px;
-}
-
-.todo-cell {
-  flex: 1;
-  padding: 5px;
-}
-
-.due-date {
-  font-size: 16px;
-}
-
-.text {
-  font-size: 16px;
-}
-
-.done {
-  text-decoration: line-through;
-}
-
-.removeBtn,
-.editBtn {
-  background-color: #ff0000;
-  color: #ffffff;
-  border: none;
-  border-radius: 5px;
-  padding: 5px 10px;
-  cursor: pointer;
-}
-
-.editBtn {
-  background-color: green;
-}
 </style>
