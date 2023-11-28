@@ -1,11 +1,6 @@
 <template>
-  <div class="bg-image" 
-     style="background-image: url('https://mdbootstrap.com/img/Photos/Others/images/76.jpg');
-            height: 100vh">
+ <div class="bg-image" :style="{ backgroundImage: 'url(https://mdbootstrap.com/img/Photos/Others/images/76.jpg)', height: '100vh', backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }">
   <div class="container mx auto">
-    <!-- <header class="mb-4">
-      <h2>{{ $t("todo") }}</h2>
-    </header> -->
     <main >
       <TodoCreator @add="add" class="mt-5"/>
       <div class="btn-group-lg mb-3">
@@ -20,13 +15,12 @@
           {{ $t("language") }}
         </button>
       </div>
-      <table class="table table-striped table-bordered table-responsive">
+      <div class="table-responsive">
+      <table class="table table-striped table-bordered">
         <thead>
-            <tr>
+          <tr>
               <th colspan="4" class="text-center">{{ $t("activeTable") }}</th>
             </tr>
-          </thead>
-        <thead>
           <tr>
             <th class="text-center">{{ $t("dueDate") }}</th>
             <th class="text-center">{{ $t("todoText") }}</th>
@@ -34,7 +28,8 @@
             <th class="text-center">{{ $t("remove") }}</th>
           </tr>
         </thead>
-        <tbody>
+    
+        <tbody >
           <TodoListItem
             v-for="todo in activeTodos"
             :key="todo.id"
@@ -46,17 +41,13 @@
           />
         </tbody>
       </table>
-      <!-- DONE TODOS -->
-      <!-- <header class="mb-4">
-        <h2 v-if="!hideDone">{{ $t("done") }}</h2>
-      </header> -->
-      <table v-if="!hideDone" class="table table-striped table-bordered table-responsive">
+    </div>
+    <div class="table-responsive">
+      <table v-if="!hideDone" class="table table-striped table-bordered">
         <thead>
-            <tr>
+          <tr>
               <th colspan="4" class="text-center">{{ $t("completedTable") }}</th>
             </tr>
-          </thead>
-        <thead>
           <tr>
             <th class="text-center">{{ $t("dueDate") }}</th>
             <th class="text-center">{{ $t("todoText") }}</th>
@@ -75,6 +66,7 @@
           />
         </tbody>
       </table>
+    </div>
     </main>
   </div>
   </div>
@@ -171,17 +163,22 @@ main {
   align-items: center;
 }
 
-header {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-
 .todo-form {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
 }
+
+.table-responsive{
+  max-height: 40vh;
+  min-width: 100vh;
+}
+
+thead {
+  position: sticky;
+  top: -1px;
+  background-color: white;
+}
+
 </style>

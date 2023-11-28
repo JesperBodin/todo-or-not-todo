@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent="add" class="todo-form" action="/action_page.php">
-    <input v-model="newTodo" placeholder="Enter todo.." class="todo-input form-control" />
+    <input v-model="newTodo" placeholder="Enter todo.." class="todo-input form-control" required />
     <input v-model="dueDate" type="date" class="date-input form-control " />
     <button type="submit" class="btn btn-primary text-nowrap"><i class="bi bi-plus-lg"></i></button>
   </form>
@@ -12,8 +12,9 @@ export default {
     return {
       newTodo: "",
       dueDate: "",
-    };
-  },
+          };
+},
+
   methods: {
     add() {
       this.$emit("add", {
@@ -21,7 +22,9 @@ export default {
         newTodo: this.newTodo,
         dueDate: this.dueDate,
       });
-    },
+      this.newTodo = "";
+      this.dueDate = "";
+      }
   },
 };
 </script>
