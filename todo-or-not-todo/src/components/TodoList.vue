@@ -14,7 +14,9 @@
         <button class="btn btn-primary me-2" @click="toggleLocale">
           {{ $t("language") }}
         </button>
+        <button @click="fetchAllData">fetchAllData</button>
       </div>
+      <div v-if="getResult" class="alert alert-secondary mt-2" role="alert"><pre>{{getResult}}</pre></div>
       <div class="table-responsive">
       <table class="table table-striped table-bordered">
         <thead>
@@ -79,10 +81,16 @@ import TodoListItem from "./TodoListItem.vue";
 import TodoCreator from "./TodoCreator.vue";
 
 export default {
+  data(){
+  return {
+    getResult: null
+  }
+},
   components: {
     TodoListItem,
     TodoCreator,
   },
+
   computed: {
     ...mapState(todoStore, ["selectedTodo"]),
     ...mapWritableState(todoStore, [
@@ -151,6 +159,36 @@ export default {
     toggleLocale() {
       this.currentLocale = this.currentLocale === "en" ? "sv" : "en";
       this.$i18n.locale = this.currentLocale;
+    },
+
+    formatResponse(res){
+      return JSON.stringify(res, null, 2);
+    },
+
+    async fetchAllData(){
+      try {
+        const res = await fetch('http://localhost:8080/api/todo');
+
+        if (!res.ok) {
+          throw new Error('HTTP error! Status: $(res.status)');
+        }
+
+        const data = await res.json();
+
+        const result = {
+          data: data,
+          status: res.status,
+          statusText: res.statusText,
+          headers: {
+            "Content-Type": res.headers.get("Content-Type"),
+            "Content-Lenght": res.headers.get("Content-Length"), 
+          },
+        };
+
+        this.getResult = this.formatResponse(result);
+      } catch (error) {
+        this.getResult = error.message;
+      }
     },
   },
 };

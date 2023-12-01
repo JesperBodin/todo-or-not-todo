@@ -7,9 +7,11 @@ export const todoStore = defineStore("todo", {
     todos: [],
     selectedTodo: null,
     isEditing: null,
+    apiData: [],
   }),
 
   actions: {
+
     addTodo(newTodo) {
       this.todos.push(newTodo);
     },
