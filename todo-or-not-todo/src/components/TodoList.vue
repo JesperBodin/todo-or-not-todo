@@ -2,7 +2,7 @@
  <div class="bg-image" :style="{ backgroundImage: 'url(https://mdbootstrap.com/img/Photos/Others/images/76.jpg)', height: '100vh', backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }">
   <div class="container mx auto">
     <main >
-      <TodoCreator @add="add" class="mt-5"/>
+      <TodoCreator @todo-added="add" class="mt-5"/>
       <div class="btn-group-lg mb-3">
         <button @click="removeAll" class="btn btn-primary btn-danger me-2">
           {{ $t("removeAll") }}
@@ -39,7 +39,7 @@
             @remove="remove"
             @toggleDone="toggle"
             @edit-todo="edit"
-            @save-edited-todo="save"
+            @save-edited-todo="saveEditedTodo"
           />
         </tbody>
       </table>
@@ -64,7 +64,7 @@
             :todo="todo"
             @remove="remove"
             @toggleDone="toggle"
-            @save-edited-todo="save"
+            @save-edited-todo="saveEditedTodo"
           />
         </tbody>
       </table>
@@ -79,11 +79,12 @@ import { todoStore } from "../stores/TodoStore";
 import { mapState, mapWritableState, mapActions } from "pinia";
 import TodoListItem from "./TodoListItem.vue";
 import TodoCreator from "./TodoCreator.vue";
+import { updateTodoApi, removeTodoApi, removeAllTodosApi } from "../api-calls/api";
 
 export default {
   data(){
   return {
-    getResult: null
+    getResult: null,
   }
 },
   components: {
@@ -123,18 +124,16 @@ export default {
       "editTodo",
     ]),
 
-    add(todo) {
-      this.addTodo(todo);
-    },
-
     remove(todo) {
-      console.log("Clicking the remove button in parent");
-      this.removeOneTodo(todo);
+      removeTodoApi(todo.id);
+      this.removeOneTodo(todo.id);
     },
 
-    removeAll() {
+    async removeAll() {
+      await removeAllTodosApi();
       this.removeAllTodos();
-    },
+},
+
 
     sort() {
       this.sortByDate();
@@ -156,9 +155,35 @@ export default {
       }
     },
 
+    async saveEditedTodo(todo) {
+  try {
+    console.log('Before API call:', this.todos);
+
+    // Update the todo on the server
+    const updatedTodoFromServer = await updateTodoApi(todo.text, todo.date);
+
+    console.log('After API call (server response):', updatedTodoFromServer);
+
+    // Handle the updated todo in your local state
+    const index = this.todos.findIndex((todo) => todo.id === updatedTodoFromServer.id);
+    if (index !== -1) {
+      // Update the local state with the updated todo
+      this.$set(this.todos, index, updatedTodoFromServer);
+
+      console.log('After updating local state:', this.todos);
+    }
+  } catch (error) {
+    console.error('Error updating todo:', error.message);
+  }
+},
+
     toggleLocale() {
       this.currentLocale = this.currentLocale === "en" ? "sv" : "en";
       this.$i18n.locale = this.currentLocale;
+    },
+
+    add(newTodo){
+      this.todos.push(newTodo);
     },
 
     formatResponse(res){
@@ -177,12 +202,6 @@ export default {
 
         const result = {
           data: data,
-          status: res.status,
-          statusText: res.statusText,
-          headers: {
-            "Content-Type": res.headers.get("Content-Type"),
-            "Content-Lenght": res.headers.get("Content-Length"), 
-          },
         };
 
         this.getResult = this.formatResponse(result);

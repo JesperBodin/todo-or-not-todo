@@ -7,7 +7,6 @@ export const todoStore = defineStore("todo", {
     todos: [],
     selectedTodo: null,
     isEditing: null,
-    apiData: [],
   }),
 
   actions: {
@@ -17,12 +16,12 @@ export const todoStore = defineStore("todo", {
     },
 
     removeOneTodo(id) {
-      const index = this.todos.indexOf(id);
+      const index = this.todos.findIndex(todo => todo.id === id);
       if (index !== -1) {
         this.todos.splice(index, 1);
       }
     },
-
+ 
     removeAllTodos() {
       this.todos = [];
     },

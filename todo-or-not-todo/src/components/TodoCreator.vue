@@ -7,26 +7,28 @@
 </template>
 
 <script>
+
+import { addTodoApi } from '../api-calls/api';
+
 export default {
   data() {
     return {
+      id: null,
       newTodo: "",
       dueDate: "",
+      done: false,
           };
 },
 
   methods: {
-    add() {
-      this.$emit("add", {
-        id: Date.now(),
-        newTodo: this.newTodo,
-        dueDate: this.dueDate,
-      });
-      this.newTodo = "";
-      this.dueDate = "";
-      }
+
+    async add() {
+        const newTodo = await addTodoApi(this.newTodo);
+        console.log(newTodo)
+        this.$emit('todo-added', newTodo);
+    },
   },
-};
+  };
 </script>
 
 <style scoped>
