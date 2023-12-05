@@ -23,7 +23,7 @@ export default {
   methods: {
 
     async add() {
-        const newTodo = await addTodoApi(this.newTodo);
+        const newTodo = await addTodoApi(this.newTodo, this.dueDate);
         console.log(newTodo)
         this.$emit('todo-added', newTodo);
     },

@@ -8,7 +8,7 @@
         <input type="date" v-model="editedDate" @keydown.enter="saveEditedTodo" class="form-control" />
       </div>
     </td>
-    <td>nk off whi
+    <td>
       <div v-if="!editing">
         <h5 class="todo-text" style="cursor: pointer;" :class="{ done: todo.done }" @click="toggleDone(todo.id)">
           {{ todo.text }}

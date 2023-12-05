@@ -160,7 +160,7 @@ export default {
     console.log('Before API call:', this.todos);
 
     // Update the todo on the server
-    const updatedTodoFromServer = await updateTodoApi(todo.text, todo.date);
+    const updatedTodoFromServer = await updateTodoApi(todo.id, todo.text, todo.dueDate);
 
     console.log('After API call (server response):', updatedTodoFromServer);
 
