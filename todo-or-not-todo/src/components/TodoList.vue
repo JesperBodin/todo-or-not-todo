@@ -38,7 +38,6 @@
             :todo="todo"
             @remove="remove"
             @toggleDone="toggle"
-            @edit-todo="edit"
             @save-edited-todo="save"
           />
         </tbody>
@@ -146,46 +145,32 @@ export default {
     //   this.selectedTodo = { ...todo };
     // },
 
-    async edit(todo) {
-    console.log("Edit event received in parent", todo);
+  //   async edit(todo) {
+  //   console.log("Edit event received in parent", todo);
 
-    try {
-      const response = await fetch(`http://localhost:8080/api/todo/${todo.id}`);
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
+  //   try {
+  //     const response = await fetch(`http://localhost:8080/api/todo/${todo.id}`);
+  //     if (!response.ok) {
+  //       throw new Error(`HTTP error! Status: ${response.status}`);
+  //     }
 
-      const editedTodo = await response.json();
-      this.selectedTodo = { ...editedTodo };
-    } catch (error) {
-      console.error('Error fetching todo for editing:', error.message);
-    }
-  },
+  //     const editedTodo = await response.json();
+  //     this.selectedTodo = { ...editedTodo };
+  //   } catch (error) {
+  //     console.error('Error fetching todo for editing:', error.message);
+  //   }
+  // },
 
   async save({ id, newTodo, dueDate }) {
-
     try {
-      const response = await fetch(`http://localhost:8080/api/todo/update/${id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ text: newTodo, deadLine: dueDate }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      const updatedTodoFromServer = await response.json();
+      const updatedTodoFromServer = await updateTodoApi(id, newTodo, dueDate);
 
       const index = this.todos.findIndex((todo) => todo.id === id);
 
       if (index !== -1) {
-
         this.todos = [
-          ...this.todos.slice(0, index),  
-          updatedTodoFromServer,          
+          ...this.todos.slice(0, index),
+          updatedTodoFromServer,
           ...this.todos.slice(index + 1),
         ];
       }
@@ -193,32 +178,6 @@ export default {
       console.error('Error updating todo:', error.message);
     }
   },
-
-    // save({ id, newTodo, dueDate }) {
-    //   console.log("saving edited todo", id, newTodo, dueDate);
-    //   const index = this.todos.findIndex((todo) => todo.id === id);
-    //   if (index !== -1) {
-    //     this.todos[index].newTodo = newTodo;
-    //     this.todos[index].dueDate = dueDate;
-    //     this.editTodo(this.todos[index]);
-    //   }
-    // },
-
-//     async saveEditedTodo(todo) {
-//   try {
-//     console.log('Before API call - todo:', todo);  // Log to check the todo object
-//     const updatedTodoFromServer = await updateTodoApi(todo.id, {
-//       id: todo.id,
-//       text: todo.text,
-//       dueDate: todo.dueDate,
-//       done: todo.done
-//     });
-//     console.log('After API call - todo:', todo);  // Log to check the todo object
-//     // ... (rest of the code)
-//   } catch (error) {
-//     console.error('Error updating todo:', error.message);
-//   }
-// },
 
     toggleLocale() {
       this.currentLocale = this.currentLocale === "en" ? "sv" : "en";
