@@ -26,7 +26,7 @@ export default {
       "addTodo",
     ]),
 
-    async add() {
+     add() {
         this.addTodo(this.newTodo, this.dueDate)
         this.$emit('todo-added', this.newTodo);
     },
