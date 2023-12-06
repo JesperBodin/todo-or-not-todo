@@ -1,20 +1,20 @@
 import { defineStore } from "pinia";
+import { addTodoApi } from '../api-calls/api';
 
 export const todoStore = defineStore("todo", {
   state: () => ({
-    newTodo: "",
-    dueDate: null,
     todos: [],
-    selectedTodo: null,
-    isEditing: null,
   }),
 
   actions: {
 
-    addTodo(newTodo) {
-      this.todos.push(newTodo);
+    async addTodo(newTodo, dueDate){
+
+     const todo = await addTodoApi(newTodo, dueDate);
+      this.todos.push(todo);
     },
 
+    
     removeOneTodo(id) {
       const index = this.todos.findIndex(todo => todo.id === id);
       if (index !== -1) {
@@ -48,8 +48,8 @@ export const todoStore = defineStore("todo", {
       }
     },
 
-    editTodo() {
-      this.todos;
-    },
+    // editTodo() {
+    //   this.todos;
+    // },
   },
 });

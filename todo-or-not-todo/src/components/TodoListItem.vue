@@ -57,7 +57,6 @@ export default {
     },
 
     editTodo() {
-      console.log("edit button clicked");
       this.$emit("edit-todo", this.todo);
       this.editing = true;
       this.editDate = true;
@@ -70,7 +69,7 @@ export default {
         dueDate: this.editedDate,
       });
       this.editing = false;
-      this.editDate = false;
+
     },
   },
 };

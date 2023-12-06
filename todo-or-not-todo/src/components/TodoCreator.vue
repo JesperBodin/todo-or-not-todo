@@ -7,8 +7,9 @@
 </template>
 
 <script>
+import { todoStore } from "../stores/TodoStore";
+import { mapActions } from "pinia";
 
-import { addTodoApi } from '../api-calls/api';
 
 export default {
   data() {
@@ -21,11 +22,13 @@ export default {
 },
 
   methods: {
+    ...mapActions(todoStore, [
+      "addTodo",
+    ]),
 
     async add() {
-        const newTodo = await addTodoApi(this.newTodo, this.dueDate);
-        console.log(newTodo)
-        this.$emit('todo-added', newTodo);
+        this.addTodo(this.newTodo, this.dueDate)
+        this.$emit('todo-added', this.newTodo);
     },
   },
   };

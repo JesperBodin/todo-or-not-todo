@@ -60,14 +60,14 @@ export async function addTodoApi(newTodo, dueDate) {
     }
   }
 
-  export async function updateTodoApi(id, newTodo, dueDate) {
+  export async function updateTodoApi(id, newTodo, dueDate, done) {
     try {
       const response = await fetch(`http://localhost:8080/api/todo/update/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ text: newTodo, deadLine: dueDate })
+        body: JSON.stringify({ text: newTodo, deadLine: dueDate, done: done })
       });
   
       if (!response.ok) {

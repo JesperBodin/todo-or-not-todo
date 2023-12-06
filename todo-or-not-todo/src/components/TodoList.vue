@@ -2,7 +2,7 @@
  <div class="bg-image" :style="{ backgroundImage: 'url(https://mdbootstrap.com/img/Photos/Others/images/76.jpg)', height: '100vh', backgroundSize: 'cover', backgroundRepeat: 'no-repeat' }">
   <div class="container mx auto">
     <main >
-      <TodoCreator @todo-added="add" class="mt-5"/>
+      <TodoCreator class="mt-5"/>
       <div class="btn-group-lg mb-3">
         <button @click="removeAll" class="btn btn-primary btn-danger me-2">
           {{ $t("removeAll") }}
@@ -14,9 +14,7 @@
         <button class="btn btn-primary me-2" @click="toggleLocale">
           {{ $t("language") }}
         </button>
-        <button @click="fetchAllData">fetchAllData</button>
       </div>
-      <div v-if="getResult" class="alert alert-secondary mt-2" role="alert"><pre>{{getResult}}</pre></div>
       <div class="table-responsive">
       <table class="table table-striped table-bordered">
         <thead>
@@ -38,7 +36,7 @@
             :todo="todo"
             @remove="remove"
             @toggleDone="toggle"
-            @save-edited-todo="save"
+            @save-edited-todo="update"
           />
         </tbody>
       </table>
@@ -63,7 +61,7 @@
             :todo="todo"
             @remove="remove"
             @toggleDone="toggle"
-            @save-edited-todo="save"
+            @save-edited-todo="update"
           />
         </tbody>
       </table>
@@ -75,35 +73,28 @@
 
 <script>
 import { todoStore } from "../stores/TodoStore";
-import { mapState, mapWritableState, mapActions } from "pinia";
+import { mapWritableState, mapActions } from "pinia";
 import TodoListItem from "./TodoListItem.vue";
 import TodoCreator from "./TodoCreator.vue";
 import { updateTodoApi, removeTodoApi, removeAllTodosApi } from "../api-calls/api";
 
 export default {
   data(){
-  return {
-    getResult: null,
-  }
+  return {}
 },
+
   components: {
     TodoListItem,
     TodoCreator,
   },
 
   computed: {
-    ...mapState(todoStore, ["selectedTodo"]),
     ...mapWritableState(todoStore, [
       "newTodo",
       "todos",
       "hideDone",
       "dueDate",
-      "selectedTodo",
     ]),
-
-    filteredTodos() {
-      return this.hideDone ? this.todos.filter((t) => !t.done) : this.todos;
-    },
 
     activeTodos() {
       return this.todos.filter((todo) => !todo.done);
@@ -120,7 +111,7 @@ export default {
       "removeAllTodos",
       "sortByDate",
       "toggleDone",
-      "editTodo",
+      // "editTodo",
     ]),
 
     remove(todo) {
@@ -133,35 +124,15 @@ export default {
       this.removeAllTodos();
 },
 
-
     sort() {
       this.sortByDate();
     },
+
     toggle(id) {
       this.toggleDone(id);
     },
-    // edit(todo) {
-    //   console.log("Edit event received in parent", todo);
-    //   this.selectedTodo = { ...todo };
-    // },
 
-  //   async edit(todo) {
-  //   console.log("Edit event received in parent", todo);
-
-  //   try {
-  //     const response = await fetch(`http://localhost:8080/api/todo/${todo.id}`);
-  //     if (!response.ok) {
-  //       throw new Error(`HTTP error! Status: ${response.status}`);
-  //     }
-
-  //     const editedTodo = await response.json();
-  //     this.selectedTodo = { ...editedTodo };
-  //   } catch (error) {
-  //     console.error('Error fetching todo for editing:', error.message);
-  //   }
-  // },
-
-  async save({ id, newTodo, dueDate }) {
+  async update({ id, newTodo, dueDate }) {
     try {
       const updatedTodoFromServer = await updateTodoApi(id, newTodo, dueDate);
 
@@ -184,33 +155,10 @@ export default {
       this.$i18n.locale = this.currentLocale;
     },
 
-    add(newTodo){
-      this.todos.push(newTodo);
-    },
-
-    formatResponse(res){
-      return JSON.stringify(res, null, 2);
-    },
-
-    async fetchAllData(){
-      try {
-        const res = await fetch('http://localhost:8080/api/todo');
-
-        if (!res.ok) {
-          throw new Error('HTTP error! Status: $(res.status)');
-        }
-
-        const data = await res.json();
-
-        const result = {
-          data: data,
-        };
-
-        this.getResult = this.formatResponse(result);
-      } catch (error) {
-        this.getResult = error.message;
-      }
-    },
+    // add(newTodo){
+    //   this.todos.push(newTodo);
+    // },
+    
   },
 };
 </script>
