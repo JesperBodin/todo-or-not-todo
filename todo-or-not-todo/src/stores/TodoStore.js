@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { addTodoApi } from '../api-calls/api';
+import { addTodoApi, removeTodoApi, removeAllTodosApi } from '../api-calls/api';
 
 export const todoStore = defineStore("todo", {
   state: () => ({
@@ -14,15 +14,17 @@ export const todoStore = defineStore("todo", {
       this.todos.push(todo);
     },
 
-    
-    removeOneTodo(id) {
+
+   async removeOneTodo(id) {
+     await removeTodoApi(id);
       const index = this.todos.findIndex(todo => todo.id === id);
       if (index !== -1) {
         this.todos.splice(index, 1);
       }
     },
  
-    removeAllTodos() {
+    async removeAllTodos() {
+      await removeAllTodosApi();
       this.todos = [];
     },
 

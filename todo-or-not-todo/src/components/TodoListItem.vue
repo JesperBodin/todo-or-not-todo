@@ -29,6 +29,8 @@
 
 <script>
 
+import { todoStore } from "../stores/TodoStore";
+
 export default {
 
   data() {
@@ -47,9 +49,9 @@ export default {
   },
 
   methods: {
+
     removeTodo() {
       this.$emit("remove", this.todo);
-  
     },
 
     toggleDone() {

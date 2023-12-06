@@ -76,7 +76,7 @@ import { todoStore } from "../stores/TodoStore";
 import { mapWritableState, mapActions } from "pinia";
 import TodoListItem from "./TodoListItem.vue";
 import TodoCreator from "./TodoCreator.vue";
-import { updateTodoApi, removeTodoApi, removeAllTodosApi } from "../api-calls/api";
+import { updateTodoApi } from "../api-calls/api";
 
 export default {
   data(){
@@ -111,16 +111,13 @@ export default {
       "removeAllTodos",
       "sortByDate",
       "toggleDone",
-      // "editTodo",
     ]),
 
     remove(todo) {
-      removeTodoApi(todo.id);
       this.removeOneTodo(todo.id);
     },
 
-    async removeAll() {
-      await removeAllTodosApi();
+    removeAll() {
       this.removeAllTodos();
 },
 
@@ -154,10 +151,6 @@ export default {
       this.currentLocale = this.currentLocale === "en" ? "sv" : "en";
       this.$i18n.locale = this.currentLocale;
     },
-
-    // add(newTodo){
-    //   this.todos.push(newTodo);
-    // },
     
   },
 };
