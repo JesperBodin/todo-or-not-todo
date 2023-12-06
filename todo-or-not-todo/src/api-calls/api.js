@@ -60,19 +60,23 @@ export async function addTodoApi(newTodo, dueDate) {
     }
   }
 
-  export async function updateTodoApi(todoId, updateTodo) {
+  export async function updateTodoApi(todoId, todo) {
     try {
+      console.log('Request Payload:', JSON.stringify(todo));
       const response = await fetch(`http://localhost:8080/api/todo/update/${todoId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(updateTodo),
+        body: JSON.stringify(todo),
       });
   
       if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
+          console.error(`HTTP error! Status: ${response.status}`);
+          console.error('Response:', await response.text());
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+      
   
       return await response.json();
     } catch (error) {
