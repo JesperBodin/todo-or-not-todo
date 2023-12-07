@@ -30,7 +30,6 @@
 <script>
 import { todoStore } from "../stores/TodoStore";
 import { mapWritableState, mapActions } from "pinia";
-import TodoCreator from "./TodoCreator.vue";
 import TodoTableRow from "./TodoTableRow.vue";
 
 export default {
@@ -39,7 +38,6 @@ export default {
 },
 
   components: {
-    TodoCreator,
     TodoTableRow
 },
 
@@ -78,11 +76,6 @@ export default {
         this.updateTodo( todo );
     },
 
-    toggleLocale() {
-      this.currentLocale = this.currentLocale === "en" ? "sv" : "en";
-      this.$i18n.locale = this.currentLocale;
-    },
-    
   },
 };
 </script>
