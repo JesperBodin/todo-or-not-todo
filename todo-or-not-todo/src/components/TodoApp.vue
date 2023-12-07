@@ -3,19 +3,8 @@
      <div class="container mx auto">
        <main >
          <TodoCreator class="mt-5"/>
-         <div class="btn-group-lg mb-3">
-           <button @click="removeAll" class="btn btn-primary btn-danger me-2">
-             {{ $t("removeAll") }}
-           </button>
-           <button @click="sort" class="btn btn-primary me-2">{{ $t("sort") }}</button>
-           <button @click="hideDone = !hideDone" class="btn btn-primary me-2">
-             {{ $t(hideDone ? "showDone" : "hideDone") }}
-           </button>
-           <button class="btn btn-primary me-2" @click="toggleLocale">
-             {{ $t("language") }}
-           </button>
-         </div>       
-        <TodoTableActive>
+         <TodoButtonGroup />
+         <TodoTableActive>
             <TodoTableRow
                     v-for="todo in activeTodos"
                     :key="todo.id"
@@ -24,9 +13,9 @@
                     @toggleDone="toggle"
                     @save-edited-todo="update"
                     />
-        </TodoTableActive>
+         </TodoTableActive>
         
-        <TodoTableCompleted>
+         <TodoTableCompleted>
             <TodoTableRow
                     v-for="todo in completedTodos"
                     :key="todo.id"
@@ -35,19 +24,18 @@
                     @toggleDone="toggle"
                     @save-edited-todo="update"
                     />
-        </TodoTableCompleted>
+         </TodoTableCompleted>
        </main>
      </div>
      </div>
    </template>
    
    <script>
-   import { todoStore } from "../stores/TodoStore";
-   import { mapWritableState, mapActions } from "pinia";
    import TodoTableRow from "./TodoTableRow.vue";
    import TodoCreator from "./TodoCreator.vue";
    import TodoTableActive from "./TodoTableActive.vue";
    import TodoTableCompleted from "./TodoTableCompleted.vue";
+   import TodoButtonGroup from "./TodoButtonGroup.vue";
    
    export default {
      data(){
@@ -58,46 +46,13 @@
     TodoTableRow,
     TodoCreator,
     TodoTableActive,
-    TodoTableCompleted
+    TodoTableCompleted,
+    TodoButtonGroup
 },
    
-     computed: {
-       ...mapWritableState(todoStore, [
-         "newTodo",
-         "todos",
-         "hideDone",
-         "dueDate",
-       ]),
+     computed: {},
    
-       activeTodos() {
-         return this.todos.filter((todo) => !todo.done);
-       },
-       completedTodos() {
-         return this.todos.filter((todo) => todo.done);
-       },
-     },
-   
-     methods: {
-       ...mapActions(todoStore, [
-         "removeAllTodos",
-         "sortByDate",
-       ]),
-   
-
-       removeAll() {
-         this.removeAllTodos();
-   },
-   
-       sort() {
-         this.sortByDate();
-       },
-   
-       toggleLocale() {
-         this.currentLocale = this.currentLocale === "en" ? "sv" : "en";
-         this.$i18n.locale = this.currentLocale;
-       },
-       
-     },
+     methods: {},
    };
    </script>
    
