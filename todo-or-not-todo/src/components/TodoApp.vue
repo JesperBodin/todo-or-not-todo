@@ -79,32 +79,17 @@
    
      methods: {
        ...mapActions(todoStore, [
-         "addTodo",
-         "removeOneTodo",
          "removeAllTodos",
          "sortByDate",
-         "toggleDone",
-         "updateTodo"
        ]),
    
-       remove(todo) {
-         this.removeOneTodo(todo.id);
-       },
-   
+
        removeAll() {
          this.removeAllTodos();
    },
    
        sort() {
          this.sortByDate();
-       },
-   
-       toggle(id) {
-         this.toggleDone(id);
-       },
-   
-       update(todo) {
-           this.updateTodo( todo );
        },
    
        toggleLocale() {
@@ -130,11 +115,6 @@
      margin-bottom: 20px;
    }
     
-   thead {
-     position: sticky;
-     top: -1px;
-     background-color: white;
-   }
    
    </style>
    

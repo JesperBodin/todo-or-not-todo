@@ -40,7 +40,6 @@ return {}
 components: {
     TodoCreator,
     TodoTableRow,
-    TodoTableRow
 },
 
 computed: {
@@ -61,24 +60,13 @@ completedTodos() {
 
 methods: {
 ...mapActions(todoStore, [
- "addTodo",
  "removeOneTodo",
- "removeAllTodos",
- "sortByDate",
  "toggleDone",
  "updateTodo"
 ]),
 
 remove(todo) {
  this.removeOneTodo(todo.id);
-},
-
-removeAll() {
- this.removeAllTodos();
-},
-
-sort() {
- this.sortByDate();
 },
 
 toggle(id) {
@@ -99,18 +87,7 @@ toggleLocale() {
 </script>
 
 <style scoped>
-main {
-display: flex;
-flex-direction: column;
-align-items: center;
-}
 
-.todo-form {
-display: flex;
-justify-content: center;
-align-items: center;
-margin-bottom: 20px;
-}
 
 .table-responsive{
 max-height: 40vh;
