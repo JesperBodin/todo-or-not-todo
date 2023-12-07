@@ -76,10 +76,4 @@ export const todoStore = defineStore("todo", {
         }
     }
   },
-
-
-    // editTodo() {
-    //   this.todos;
-    // },
-
 });
