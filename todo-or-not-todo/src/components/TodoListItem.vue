@@ -36,6 +36,7 @@ export default {
       editing: false,
       editedText: this.todo.newTodo,
       editedDate: this.todo.dueDate,
+      editedDone: this.todo.done,
     };
   },
 
@@ -67,6 +68,7 @@ export default {
         id: this.todo.id,
         newTodo: this.editedText,
         dueDate: this.editedDate,
+        done: this.editedDone,
       });
       this.editing = false;
 

@@ -43,27 +43,36 @@ export const todoStore = defineStore("todo", {
       });
     },
 
-    toggleDone(id) {
+    async toggleDone(id) {
       const todo = this.todos.find((item) => item.id === id);
       if (todo) {
         todo.done = !todo.done;
+        await this.updateTodo({
+          id: todo.id,
+          newTodo: todo.newTodo,
+          dueDate: todo.dueDate,
+          done: todo.done,
+        });
       }
     },
 
     async updateTodo(todo) {
 
-        const updatedTodoFromServer = await updateTodoApi(todo);
+        const updatedTodo = await updateTodoApi(todo);
     
         const tempTodo = {
           id: todo.id,
           newTodo: todo.newTodo, 
           dueDate: todo.dueDate, 
+          done: todo.done,
         };
     
-        const indexToUpdate = this.todos.findIndex(item => item.id === updatedTodoFromServer.id);
+        const indexToUpdate = this.todos.findIndex(item => item.id === updatedTodo.id);
         if (indexToUpdate !== -1) {
           this.todos[indexToUpdate].newTodo = tempTodo.newTodo;
           this.todos[indexToUpdate].dueDate = tempTodo.dueDate;
+          this.todos[indexToUpdate].done = tempTodo.done;
+
         }
     }
   },
