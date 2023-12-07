@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { addTodoApi, removeTodoApi, removeAllTodosApi } from '../api-calls/api';
+import { addTodoApi, removeTodoApi, removeAllTodosApi, updateTodoApi } from '../api-calls/api';
 
 export const todoStore = defineStore("todo", {
   state: () => ({
@@ -50,8 +50,27 @@ export const todoStore = defineStore("todo", {
       }
     },
 
+    async updateTodo(todo) {
+
+        const updatedTodoFromServer = await updateTodoApi(todo);
+    
+        const tempTodo = {
+          id: todo.id,
+          newTodo: todo.newTodo, 
+          dueDate: todo.dueDate, 
+        };
+    
+        const indexToUpdate = this.todos.findIndex(item => item.id === updatedTodoFromServer.id);
+        if (indexToUpdate !== -1) {
+          this.todos[indexToUpdate].newTodo = tempTodo.newTodo;
+          this.todos[indexToUpdate].dueDate = tempTodo.dueDate;
+        }
+    }
+  },
+
+
     // editTodo() {
     //   this.todos;
     // },
-  },
+
 });

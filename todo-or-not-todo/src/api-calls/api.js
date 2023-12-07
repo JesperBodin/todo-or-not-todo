@@ -1,7 +1,7 @@
 export async function addTodoApi(newTodo, dueDate) {
     const todoData = {
-      text: newTodo,
-      deadLine: dueDate,
+      newTodo: newTodo,
+      dueDate: dueDate,
       done: false,
     };
   
@@ -60,14 +60,14 @@ export async function addTodoApi(newTodo, dueDate) {
     }
   }
 
-  export async function updateTodoApi(id, newTodo, dueDate, done) {
+  export async function updateTodoApi(todo) {
     try {
-      const response = await fetch(`http://localhost:8080/api/todo/update/${id}`, {
+      const response = await fetch(`http://localhost:8080/api/todo/update/${todo.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ text: newTodo, deadLine: dueDate, done: done })
+        body: JSON.stringify(todo)
       });
   
       if (!response.ok) {
