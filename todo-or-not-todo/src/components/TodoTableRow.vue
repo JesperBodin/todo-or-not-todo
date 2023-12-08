@@ -22,12 +22,24 @@
         <button @click="editTodo" class="editBtn btn btn-warning"><i class="bi bi-pencil-fill"></i></button>
       </td>
       <td class="text-center">
-        <button @click="removeTodo" class="removeBtn btn btn-danger"><i class="bi bi-trash3"></i></button>
+        <button @click="confirmationPopup" class="removeBtn btn btn-danger"><i class="bi bi-trash3"></i></button>
       </td>
     </tr>
+    <ConfirmationModal
+        :visible="confirmationVisible"
+        @confirm="removeTodo"
+        @cancel="cancelRemoveTodo"
+        :title="$t('removeModalTitle')"
+        :cancelButtonLabel="$t('cancelLabel')"
+        :confirmButtonLabel="$t('confirmLabel')"
+      >
+        <p>{{ $t("removeModalText") }}</p>
+      </ConfirmationModal>
   </template>
   
   <script>
+
+  import ConfirmationModal from './shared/ConfirmationModal.vue';
   
   export default {
   
@@ -37,8 +49,15 @@
         editedText: this.todo.newTodo,
         editedDate: this.todo.dueDate,
         editedDone: this.todo.done,
+        confirmationVisible: false,
       };
     },
+
+    components: {
+      ConfirmationModal
+},
+
+    emits: ["remove", "toggleDone", "edit-todo", "save-edited-todo"],
   
     props: {
       todo: {
@@ -51,6 +70,7 @@
   
       removeTodo() {
         this.$emit("remove", this.todo);
+        this.confirmationVisible = false
       },
   
       toggleDone() {
@@ -71,7 +91,14 @@
           done: this.editedDone,
         });
         this.editing = false;
-  
+      },
+
+      confirmationPopup() {
+        this.confirmationVisible = true;
+      },
+
+      cancelRemoveTodo() {
+        this.confirmationVisible = false;
       },
     },
   };

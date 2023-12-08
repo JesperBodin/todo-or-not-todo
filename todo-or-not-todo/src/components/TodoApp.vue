@@ -47,7 +47,7 @@
     TodoCreator,
     TodoTableActive,
     TodoTableCompleted,
-    TodoButtonGroup
+    TodoButtonGroup,
 },
    
      computed: {},

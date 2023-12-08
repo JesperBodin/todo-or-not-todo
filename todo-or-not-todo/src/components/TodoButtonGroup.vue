@@ -1,6 +1,6 @@
 <template>
          <div class="btn-group-lg mb-3">
-           <button @click="removeAll" class="btn btn-primary btn-danger me-2">
+           <button @click="confirmationPopup" class="btn btn-primary btn-danger me-2">
              {{ $t("removeAll") }}
            </button>
            <button @click="sort" class="btn btn-primary me-2">{{ $t("sort") }}</button>
@@ -10,19 +10,33 @@
            <button class="btn btn-primary me-2" @click="toggleLocale">
              {{ $t("language") }}
            </button>
-         </div>       
-   </template>
+         </div>
+<ConfirmationModal
+  :visible="confirmationVisible"
+  @confirm="removeAll"
+  @cancel="cancelRemoveAll"
+  :title="$t('removeAllModalTitle')"
+  :cancelButtonLabel="$t('cancelLabel')" 
+  :confirmButtonLabel="$t('confirmLabel')" 
+>
+  <p>{{ $t("removeAllModalText") }}</p>
+</ConfirmationModal>     
+</template>
    
    <script>
    import { todoStore } from "../stores/TodoStore";
    import { mapWritableState, mapActions } from "pinia";
+   import ConfirmationModal from "./shared/ConfirmationModal.vue";
  
    export default {
      data(){
-     return {}
+     return {
+      confirmationVisible: false,
+     }
    },
    
      components: {
+      ConfirmationModal
 },
    
      computed: {
@@ -46,11 +60,19 @@
          "removeAllTodos",
          "sortByDate",
        ]),
-   
 
+       confirmationPopup() {
+        this.confirmationVisible = true;
+       },
+   
        removeAll() {
          this.removeAllTodos();
-   },
+         this.confirmationVisible = false;
+       },
+
+       cancelRemoveAll(){
+        this.confirmationVisible = false;
+       },
    
        sort() {
          this.sortByDate();
