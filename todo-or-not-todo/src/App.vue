@@ -1,7 +1,9 @@
-<script setup></script>
+<script setup>
+import TodoApp from './components/TodoApp.vue';
+</script>
 
 <template>
-  <div>Hej</div>
+  <TodoApp />
 </template>
 
 <style scoped></style>

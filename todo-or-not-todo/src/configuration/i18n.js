@@ -1,0 +1,57 @@
+import { createI18n } from "vue-i18n";
+
+const i18n = createI18n({
+  locale: "sv", // default locale
+  messages: {
+    en: {
+      todo: "Active Todos",
+      add: "Add",
+      removeAll: "Remove All",
+      sort: "Sort",
+      hideDone: "Hide done",
+      showDone: "Show done",
+      done: "Done Todos",
+      deadline: "Deadline:",
+      language: "Svenska",
+      dueDate: "Deadline",
+      todoText: "Task",
+      actions: "Actions",
+      edit: "edit",
+      remove: "remove",
+      activeTable: "Active Todos",
+      completedTable: "Completed Todos",
+      cancelLabel: "Cancel",
+      confirmLabel: "Remove",
+      removeAllModalTitle: "Are you sure?",
+      removeAllModalText: "Do you really want to delete all todos? This process cannot be undone.",
+      removeModalTitle: "Are you sure?",
+      removeModalText: "Do you really want to delete this todo? This process cannot be undone.",
+    },
+    sv: {
+      todo: "Aktiva Todos",
+      add: "Lägg till",
+      removeAll: "Ta bort alla",
+      sort: "Sortera",
+      hideDone: "Dölj klara",
+      showDone: "Visa klara",
+      done: "Avslutade Todos",
+      deadline: "Deadline:",
+      language: "English",
+      dueDate: "Slut Datum",
+      todoText: "Uppgift",
+      actions: "Actions",
+      edit: "ändra",
+      remove: "ta bort",
+      activeTable: "Aktiva Uppgifter",
+      completedTable: "Avklarade Uppgifter",
+      cancelLabel: "Avbryt",
+      confirmLabel: "Ta Bort",
+      removeAllModalTitle: "Är du säker?",
+      removeAllModalText: "Vill du verkligen ta bort alla todos? Detta kan ej bli ogjort.",
+      removeModalTitle: "Är du säker?",
+      removeModalText: "Vill du verkligen ta bort denna todo? Detta kan ej bli ogjort.",
+    },
+  },
+});
+
+export default i18n;
