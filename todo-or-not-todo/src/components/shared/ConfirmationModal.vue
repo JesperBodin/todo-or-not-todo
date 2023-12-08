@@ -21,13 +21,16 @@
 <script>
 export default {
   name: 'ConfirmationPopup',
+
   props: {
     visible: Boolean,
     title: String,
+
     cancelButtonLabel: {
       type: String,
       default: 'CANCEL',
     },
+
     confirmButtonLabel: {
       type: String,
       default: 'REMOVE',
@@ -39,6 +42,7 @@ export default {
       openClose: this.visible,
     };
   },
+
   methods: {
     toggleModal() {
       this.openClose = !this.openClose;
@@ -54,6 +58,7 @@ export default {
       this.$emit('cancel');
     },
   },
+  
   watch: {
     visible: function (newVal) {
       this.openClose = newVal;

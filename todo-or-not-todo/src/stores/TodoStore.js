@@ -72,7 +72,6 @@ export const todoStore = defineStore("todo", {
           this.todos[indexToUpdate].newTodo = tempTodo.newTodo;
           this.todos[indexToUpdate].dueDate = tempTodo.dueDate;
           this.todos[indexToUpdate].done = tempTodo.done;
-
         }
     }
   },
