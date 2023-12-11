@@ -14,8 +14,14 @@
       </thead>
 
       <tbody>
-        <TodoTableRow v-for="todo in activeTodos" :key="todo.id" :todo="todo" @remove="remove" @toggleDone="toggle"
-          @save-edited-todo="update" />
+        <TodoTableRow
+          v-for="todo in activeTodos"
+          :key="todo.id"
+          :todo="todo"
+          @remove="remove"
+          @toggleDone="toggle"
+          @save-edited-todo="update"
+        />
       </tbody>
     </table>
   </div>
@@ -28,20 +34,15 @@ import TodoTableRow from "./TodoTableRow.vue";
 
 export default {
   data() {
-    return {}
+    return {};
   },
 
   components: {
-    TodoTableRow
+    TodoTableRow,
   },
 
   computed: {
-    ...mapWritableState(todoStore, [
-      "newTodo",
-      "todos",
-      "hideDone",
-      "dueDate",
-    ]),
+    ...mapWritableState(todoStore, ["newTodo", "todos", "hideDone", "dueDate"]),
 
     activeTodos() {
       return this.todos.filter((todo) => !todo.done);
@@ -52,11 +53,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(todoStore, [
-      "removeOneTodo",
-      "toggleDone",
-      "updateTodo"
-    ]),
+    ...mapActions(todoStore, ["removeOneTodo", "toggleDone", "updateTodo"]),
 
     remove(todo) {
       this.removeOneTodo(todo.id);
@@ -69,7 +66,6 @@ export default {
     update(todo) {
       this.updateTodo(todo);
     },
-
   },
 };
 </script>
