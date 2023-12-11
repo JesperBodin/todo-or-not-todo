@@ -1,31 +1,25 @@
 <template>
-         <div class="table-responsive">
-         <table class="table table-striped table-bordered">
-           <thead>
-             <tr>
-                 <th colspan="4" class="text-center">{{ $t("activeTable") }}</th>
-               </tr>
-             <tr>
-               <th class="text-center">{{ $t("dueDate") }}</th>
-               <th class="text-center">{{ $t("todoText") }}</th>
-               <th class="text-center">{{ $t("edit") }}</th>
-               <th class="text-center">{{ $t("remove") }}</th>
-             </tr>
-           </thead>
-       
-           <tbody >
-             <TodoTableRow
-               v-for="todo in activeTodos"
-               :key="todo.id"
-               :todo="todo"
-               @remove="remove"
-               @toggleDone="toggle"
-               @save-edited-todo="update"
-             />
-           </tbody>
-         </table>
-         </div>
-   </template>
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th colspan="4" class="text-center">{{ $t("activeTable") }}</th>
+        </tr>
+        <tr>
+          <th class="text-center">{{ $t("dueDate") }}</th>
+          <th class="text-center">{{ $t("todoText") }}</th>
+          <th class="text-center">{{ $t("edit") }}</th>
+          <th class="text-center">{{ $t("remove") }}</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <TodoTableRow v-for="todo in activeTodos" :key="todo.id" :todo="todo" @remove="remove" @toggleDone="toggle"
+          @save-edited-todo="update" />
+      </tbody>
+    </table>
+  </div>
+</template>
 
 <script>
 import { todoStore } from "../stores/TodoStore";
@@ -33,13 +27,13 @@ import { mapWritableState, mapActions } from "pinia";
 import TodoTableRow from "./TodoTableRow.vue";
 
 export default {
-  data(){
-  return {}
-},
+  data() {
+    return {}
+  },
 
   components: {
     TodoTableRow
-},
+  },
 
   computed: {
     ...mapWritableState(todoStore, [
@@ -73,7 +67,7 @@ export default {
     },
 
     update(todo) {
-        this.updateTodo( todo );
+      this.updateTodo(todo);
     },
 
   },
@@ -81,8 +75,7 @@ export default {
 </script>
 
 <style scoped>
-
-.table-responsive{
+.table-responsive {
   max-height: 40vh;
   min-width: 100vh;
 }
@@ -92,5 +85,4 @@ thead {
   top: -1px;
   background-color: white;
 }
-
 </style>

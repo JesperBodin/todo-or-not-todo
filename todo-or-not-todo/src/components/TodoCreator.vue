@@ -27,7 +27,7 @@ export default {
     ]),
 
      add() {
-        this.addTodo(this.newTodo, this.dueDate)
+      this.addTodo(this.newTodo, this.dueDate)
         this.$emit('todo-added', this.newTodo);
     },
   },

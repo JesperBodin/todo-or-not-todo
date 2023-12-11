@@ -58,7 +58,7 @@ export default {
       this.$emit('cancel');
     },
   },
-  
+
   watch: {
     visible: function (newVal) {
       this.openClose = newVal;
@@ -67,5 +67,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
