@@ -1,5 +1,11 @@
 import { defineStore } from "pinia";
-import { addTodoApi, removeTodoApi, removeAllTodosApi, updateTodoApi } from '../api-calls/api';
+import {
+  addTodoApi,
+  removeTodoApi,
+  removeAllTodosApi,
+  updateTodoApi,
+  getAllTodosApi,
+} from "../api-calls/api";
 
 export const todoStore = defineStore("todo", {
   state: () => ({
@@ -7,22 +13,19 @@ export const todoStore = defineStore("todo", {
   }),
 
   actions: {
-
-    async addTodo(newTodo, dueDate){
-
-     const todo = await addTodoApi(newTodo, dueDate);
+    async addTodo(newTodo, dueDate) {
+      const todo = await addTodoApi(newTodo, dueDate);
       this.todos.push(todo);
     },
 
-
-   async removeOneTodo(id) {
-     await removeTodoApi(id);
-      const index = this.todos.findIndex(todo => todo.id === id);
+    async removeOneTodo(id) {
+      await removeTodoApi(id);
+      const index = this.todos.findIndex((todo) => todo.id === id);
       if (index !== -1) {
         this.todos.splice(index, 1);
       }
     },
- 
+
     async removeAllTodos() {
       await removeAllTodosApi();
       this.todos = [];
@@ -57,22 +60,28 @@ export const todoStore = defineStore("todo", {
     },
 
     async updateTodo(todo) {
+      const updatedTodo = await updateTodoApi(todo);
 
-        const updatedTodo = await updateTodoApi(todo);
-    
-        const tempTodo = {
-          id: todo.id,
-          newTodo: todo.newTodo, 
-          dueDate: todo.dueDate, 
-          done: todo.done,
-        };
-    
-        const indexToUpdate = this.todos.findIndex(item => item.id === updatedTodo.id);
-        if (indexToUpdate !== -1) {
-          this.todos[indexToUpdate].newTodo = tempTodo.newTodo;
-          this.todos[indexToUpdate].dueDate = tempTodo.dueDate;
-          this.todos[indexToUpdate].done = tempTodo.done;
-        }
-    }
+      const tempTodo = {
+        id: todo.id,
+        newTodo: todo.newTodo,
+        dueDate: todo.dueDate,
+        done: todo.done,
+      };
+
+      const indexToUpdate = this.todos.findIndex(
+        (item) => item.id === updatedTodo.id
+      );
+      if (indexToUpdate !== -1) {
+        this.todos[indexToUpdate].newTodo = tempTodo.newTodo;
+        this.todos[indexToUpdate].dueDate = tempTodo.dueDate;
+        this.todos[indexToUpdate].done = tempTodo.done;
+      }
+    },
+
+    async getAllTodos() {
+      const todos = await getAllTodosApi();
+      this.todos = todos;
+    },
   },
 });
