@@ -6,7 +6,7 @@ import { createPinia } from "pinia";
 
 import App from "./App.vue";
 import router from "./router";
-import i18n from "./configuration/i18n";
+import i18n from "./translations/i18n";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 import "bootstrap-icons/font/bootstrap-icons.css"
