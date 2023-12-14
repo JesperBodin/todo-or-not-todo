@@ -16,6 +16,18 @@ See [Vite Configuration Reference](https://vitejs.dev/config/).
 npm install
 ```
 
+## Install Vite-env
+
+```sh
+npm install --save-dev vite-plugin-env
+```
+
+## Install BootStrap
+
+```sh
+npm install bootstrap@v5.3.2
+```
+
 ### Compile and Hot-Reload for Development
 
 ```sh
