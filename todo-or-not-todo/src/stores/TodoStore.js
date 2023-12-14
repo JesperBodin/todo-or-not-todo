@@ -1,11 +1,5 @@
 import { defineStore } from "pinia";
-import {
-  addTodoApi,
-  removeTodoApi,
-  removeAllTodosApi,
-  updateTodoApi,
-  getAllTodosApi,
-} from "../api-calls/api";
+import TodoService from "../services/TodoService";
 
 export const todoStore = defineStore("todo", {
   state: () => ({
@@ -14,12 +8,12 @@ export const todoStore = defineStore("todo", {
 
   actions: {
     async addTodo(newTodo, dueDate) {
-      const todo = await addTodoApi(newTodo, dueDate);
+      const todo = await TodoService.addTodo(newTodo, dueDate);
       this.todos.push(todo);
     },
 
     async removeOneTodo(id) {
-      await removeTodoApi(id);
+      await TodoService.removeTodo(id);
       const index = this.todos.findIndex((todo) => todo.id === id);
       if (index !== -1) {
         this.todos.splice(index, 1);
@@ -27,7 +21,7 @@ export const todoStore = defineStore("todo", {
     },
 
     async removeAllTodos() {
-      await removeAllTodosApi();
+      await TodoService.removeAllTodos();
       this.todos = [];
     },
 
@@ -60,7 +54,7 @@ export const todoStore = defineStore("todo", {
     },
 
     async updateTodo(todo) {
-      const updatedTodo = await updateTodoApi(todo);
+      const updatedTodo = await TodoService.updateTodo(todo);
 
       const tempTodo = {
         id: todo.id,
@@ -80,7 +74,7 @@ export const todoStore = defineStore("todo", {
     },
 
     async getAllTodos() {
-      const todos = await getAllTodosApi();
+      const todos = await TodoService.getAllTodos();
       this.todos = todos;
     },
   },
