@@ -65,7 +65,8 @@ export default {
     ...mapWritableState(todoStore, ["todos"]),
   },
 
-  async onMounted() {
+  async mounted() {
+    console.log("Onmounted")
     this.getAllTodos();
   },
 
