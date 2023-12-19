@@ -1,11 +1,21 @@
 export default class ApiService {
     constructor(baseURL) {
       this.baseURL = baseURL;
+      this.headers = {};
+    }
+
+    setAuthorizationHeader(token) {
+      this.headers = {
+        ...this.headers,
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      }
     }
   
     async makeRequest(method, endpoint, data = null) {
       const url = `${this.baseURL}${endpoint}`;
       const headers = {
+        ...this.headers,
         'Content-Type': 'application/json',
       };
   
@@ -36,3 +46,4 @@ export default class ApiService {
       }
     }
   }
+

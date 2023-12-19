@@ -5,6 +5,8 @@ const TODO_API_BASE_URL = import.meta.env.VITE_SERVER_URL;
  class TodoService extends ApiService {
   constructor() {
     super(TODO_API_BASE_URL);
+    const token = sessionStorage.getItem('jwtToken');
+    this.setAuthorizationHeader(token);
   }
 
   async addTodo(newTodo, dueDate) {
