@@ -65,7 +65,7 @@ export default {
     ...mapWritableState(todoStore, ["todos"]),
   },
 
-  beforeMount() {
+  async onMounted() {
     this.getAllTodos();
   },
 
