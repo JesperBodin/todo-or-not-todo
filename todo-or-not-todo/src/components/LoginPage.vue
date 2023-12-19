@@ -37,8 +37,9 @@ import UserService from '../services/UserService';
       async login() {
         try {
             const response = await UserService.login(this.username, this.password);
-
             console.log('Login successful:', response);
+
+            this.$router.push('/todo');
 
         } catch(error) {
             console.error('Login failed:', error.message);

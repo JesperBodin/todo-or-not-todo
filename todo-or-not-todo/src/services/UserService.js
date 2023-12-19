@@ -16,12 +16,12 @@ class UserService extends ApiService {
     try {
     const response = await this.makeRequest('POST', '/login', loginData);
 
-    // const token = response.accessToken;
+    const token = response.accessToken;
     
 
-    // console.log(token)
+    console.log(token)
 
-    // sessionStorage.setItem('jwtToken', token);
+    sessionStorage.setItem('jwtToken', token);
 
     return response;
 
