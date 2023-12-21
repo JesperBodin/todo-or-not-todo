@@ -13,7 +13,6 @@ class UserService extends ApiService {
       password: password,
     };
 
-    try {
     const response = await this.makeRequest('POST', '/login', loginData);
 
     const token = response.accessToken;
@@ -23,15 +22,20 @@ class UserService extends ApiService {
 
     sessionStorage.setItem('jwtToken', token);
 
-    return response;
+    this.setAuthorizationHeader(token)
 
-  } catch(error) {
-    console.error('Error during login', error.message)
-    throw error;
+    return response;
+  }
+
+  async register(username, password) {
+    const signUpData = {
+      username: username,
+      password: password,
+    };
+
+    await this.makeRequest('POST', '/register', signUpData);
   }
 }
 
-
-}
 
 export default new UserService();

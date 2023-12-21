@@ -4,17 +4,20 @@
         <div class="row justify-content-center">
           <div class="col-md-6">
             <div class="card p-4" style="width: 100%;">
-              <h2 class="card-title text-center mb-4">Login</h2>
-              <form @submit.prevent="login">
+              <h2 class="card-title text-center mb-4">Sign Up</h2>
+              <form @submit.prevent="signUp">
                 <div class="mb-4">
                   <input type="text" id="username" v-model="username" class="form-control form-control-xxl" placeholder="Username" required>
                 </div>
                 <div class="mb-4">
                   <input type="password" id="password" v-model="password" class="form-control form-control-xxl" placeholder="Password" required>
                 </div>
-                <button type="submit" class="btn btn-primary btn-lg w-100 mb-3">Login</button>
+                <div class="mb-4">
+                  <input type="password" id="confirmPassword" v-model="confirmPassword" class="form-control form-control-xxl" placeholder="Confirm Password" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-lg w-100 mb-3">Sign Up</button>
                 <div class="text-center">
-                  <router-link to="/register" class="link-primary">Sign Up</router-link>
+                  <router-link to="/login" class="link-primary">Already have an account? Login</router-link>
                 </div>
               </form>
             </div>
@@ -32,16 +35,22 @@
       return {
         username: '',
         password: '',
+        confirmPassword: '',
       };
     },
     methods: {
-      async login() {
+      async signUp() {
+        if (this.password !== this.confirmPassword) {
+          alert('Passwords do not match!');
+          return;
+        }
+  
         try {
-          const response = await UserService.login(this.username, this.password);
-          console.log('Login successful:', response);
-          this.$router.push('/todo');
+          await UserService.register(this.username, this.password);
+          console.log('Sign up successful:');
+          this.$router.push('/login');
         } catch (error) {
-          console.error('Login failed:', error.message);
+          console.error('Sign up failed:', error.message);
         }
       },
     },
