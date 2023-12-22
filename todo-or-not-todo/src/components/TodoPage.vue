@@ -9,6 +9,7 @@
       backgroundRepeat: 'no-repeat',
     }"
   >
+    <LogoutButton />
     <div class="container mx auto">
       <main>
         <TodoCreator class="mt-5" />
@@ -45,6 +46,7 @@ import TodoCreator from "./TodoCreator.vue";
 import TodoTableActive from "./TodoTableActive.vue";
 import TodoTableCompleted from "./TodoTableCompleted.vue";
 import TodoButtonGroup from "./TodoButtonGroup.vue";
+import LogoutButton from "./LogoutButton.vue";
 import { todoStore } from "../stores/TodoStore";
 import { mapActions, mapWritableState } from "pinia";
 
@@ -59,18 +61,24 @@ export default {
     TodoTableActive,
     TodoTableCompleted,
     TodoButtonGroup,
+    LogoutButton,
   },
 
   computed: {
     ...mapWritableState(todoStore, ["todos"]),
   },
 
-  created() {
-    this.getAllTodos();
-  },
+    beforeMount() {
+      this.getAllTodos();
+    },
 
   methods: {
     ...mapActions(todoStore, ["getAllTodos"]),
+
+    logout() {
+      sessionStorage.removeItem('jwtToken')
+      this.$router.push('/login');
+    }
   },
 };
 </script>
@@ -88,4 +96,11 @@ main {
   align-items: center;
   margin-bottom: 20px;
 }
+
+.logout-container {
+  position: absolute;
+  top: 10px; /* Adjust as needed */
+  right: 10px; /* Adjust as needed */
+}
+
 </style>

@@ -1,9 +1,9 @@
 <script setup>
-import TodoPage from './components/TodoPage.vue';
+
 </script>
 
 <template>
-  <TodoPage />
+  <router-view />
 </template>
 
 <style scoped></style>
