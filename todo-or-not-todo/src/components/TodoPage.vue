@@ -9,9 +9,7 @@
       backgroundRepeat: 'no-repeat',
     }"
   >
-    <div class="logout-container">
-      <button @click="logout" class="logout-button btn btn-primary btn-danger">Logout</button>
-    </div>
+    <LogoutButton />
     <div class="container mx auto">
       <main>
         <TodoCreator class="mt-5" />
@@ -48,6 +46,7 @@ import TodoCreator from "./TodoCreator.vue";
 import TodoTableActive from "./TodoTableActive.vue";
 import TodoTableCompleted from "./TodoTableCompleted.vue";
 import TodoButtonGroup from "./TodoButtonGroup.vue";
+import LogoutButton from "./LogoutButton.vue";
 import { todoStore } from "../stores/TodoStore";
 import { mapActions, mapWritableState } from "pinia";
 
@@ -62,6 +61,7 @@ export default {
     TodoTableActive,
     TodoTableCompleted,
     TodoButtonGroup,
+    LogoutButton,
   },
 
   computed: {
@@ -103,7 +103,4 @@ main {
   right: 10px; /* Adjust as needed */
 }
 
-.logout-button {
-  /* Style your button */
-}
 </style>
