@@ -9,6 +9,9 @@
       backgroundRepeat: 'no-repeat',
     }"
   >
+    <div class="logout-container">
+      <button @click="logout" class="logout-button btn btn-primary btn-danger">Logout</button>
+    </div>
     <div class="container mx auto">
       <main>
         <TodoCreator class="mt-5" />
@@ -71,6 +74,11 @@ export default {
 
   methods: {
     ...mapActions(todoStore, ["getAllTodos"]),
+
+    logout() {
+      sessionStorage.removeItem('jwtToken')
+      this.$router.push('/login');
+    }
   },
 };
 </script>
@@ -87,5 +95,15 @@ main {
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
+}
+
+.logout-container {
+  position: absolute;
+  top: 10px; /* Adjust as needed */
+  right: 10px; /* Adjust as needed */
+}
+
+.logout-button {
+  /* Style your button */
 }
 </style>

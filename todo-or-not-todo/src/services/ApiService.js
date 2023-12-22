@@ -1,5 +1,3 @@
-// import { userStore } from "../stores/UserStore";
-
 export default class ApiService {
     constructor(baseURL) {
       this.baseURL = baseURL;

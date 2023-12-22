@@ -16,12 +16,7 @@ class UserService extends ApiService {
     const response = await this.makeRequest('POST', '/login', loginData);
 
     const token = response.accessToken;
-    
-
-    console.log(token)
-
     sessionStorage.setItem('jwtToken', token);
-
     this.setAuthorizationHeader(token)
 
     return response;

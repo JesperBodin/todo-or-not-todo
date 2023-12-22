@@ -24,9 +24,20 @@ const router = createRouter({
       path: '/todo',
       name: 'Todo',
       component: TodoPage,
+      meta: {requiresAuth: true},
     },
-
   ]
+})
+
+router.beforeEach((to, from, next) => {
+  const token = sessionStorage.getItem('jwtToken');
+
+  if (to.matched.some(record => record.meta.requiresAuth) && !token) {
+  next({path: '/login'});
+  } else {
+    next();
+  }
+
 })
 
 export default router
