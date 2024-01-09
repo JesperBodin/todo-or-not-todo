@@ -23,9 +23,9 @@ const i18n = createI18n({
       cancelLabel: "Cancel",
       confirmLabel: "Remove",
       removeAllModalTitle: "Are you sure?",
-      removeAllModalText: "Do you really want to delete all todos? This process cannot be undone.",
+      removeAllModalText: "Do you want to delete all todos? This process cannot be undone.",
       removeModalTitle: "Are you sure?",
-      removeModalText: "Do you really want to delete this todo? This process cannot be undone.",
+      removeModalText: "Do you want to delete this todo? This process cannot be undone.",
     },
     sv: {
       todo: "Aktiva Todos",

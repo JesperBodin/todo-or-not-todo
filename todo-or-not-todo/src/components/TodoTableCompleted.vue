@@ -1,23 +1,28 @@
 <template>
-  <div class="table-responsive">
-    <table v-if="!hideDone" class="table table-striped table-bordered">
+  <div class="table-container">
+    <table v-if="!hideDone" class="styled-table">
       <thead>
         <tr>
-          <th colspan="4" class="text-center">{{ $t("completedTable") }}</th>
+          <th colspan="4" class="table-header">{{ $t("completedTable") }}</th>
         </tr>
         <tr>
-          <th class="text-center">{{ $t("dueDate") }}</th>
-          <th class="text-center">{{ $t("todoText") }}</th>
-          <th class="text-center">{{ $t("edit") }}</th>
-          <th class="text-center">{{ $t("remove") }}</th>
+          <th class="table-column">{{ $t("dueDate") }}</th>
+          <th class="table-column">{{ $t("todoText") }}</th>
+          <th class="table-column">{{ $t("edit") }}</th>
+          <th class="table-column">{{ $t("remove") }}</th>
         </tr>
       </thead>
+    </table>
+    
+    <div class="table-body-container">
+      <table v-if="!hideDone" class="styled-table">
       <tbody>
         <TodoTableRow v-for="todo in completedTodos" :key="todo.id" :todo="todo" @remove="remove" @toggleDone="toggle"
           @save-edited-todo="update" />
       </tbody>
     </table>
   </div>
+</div>
 </template>
 
 <script>
@@ -74,14 +79,48 @@ export default {
 </script>
 
 <style scoped>
-.table-responsive {
-  max-height: 40vh;
-  min-width: 100vh;
+
+.table-container {
+  max-width: 100%;
+  min-width: 800px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
-thead {
-  position: sticky;
-  top: -1px;
-  background-color: white;
+.table-body-container {
+  max-height: 165px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 0  0 10px rgba(0, 0, 0, 0.1);
+}
+
+.styled-table thead tr {
+  background-color: #f5f5f5;
+  border: 1px solid black;
+}
+
+.table-header {
+  text-align: center;
+  padding: 10px;
+}
+
+.table-column {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid black;
+}
+
+.styled-table tbody tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+.styled-table tbody tr:hover {
+  background-color: #f0f0f0;
 }
 </style>

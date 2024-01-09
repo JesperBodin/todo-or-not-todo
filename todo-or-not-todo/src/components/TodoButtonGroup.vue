@@ -1,13 +1,13 @@
 <template>
-  <div class="btn-group-lg mb-3">
-    <button @click="confirmationPopup" class="btn btn-primary btn-danger me-2">
+  <div class="button-group">
+    <button @click="confirmationPopup" class="button remove-button">
       {{ $t("removeAll") }}
     </button>
-    <button @click="sort" class="btn btn-primary me-2">{{ $t("sort") }}</button>
-    <button @click="hideDone = !hideDone" class="btn btn-primary me-2">
+    <button @click="sort" class="button">{{ $t("sort") }}</button>
+    <button @click="hideDone = !hideDone" class="button">
       {{ $t(hideDone ? "showDone" : "hideDone") }}
     </button>
-    <button class="btn btn-primary me-2" @click="toggleLocale">
+    <button class="button" @click="toggleLocale">
       {{ $t("language") }}
     </button>
   </div>
@@ -81,5 +81,36 @@ export default {
 };
 </script>
    
-<style scoped></style>
+<style scoped>
+
+.button-group {
+
+}
+
+.button {
+  padding: 0 10px;
+  height: 40px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: #f5f5f5;
+  color: #333;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+.button:hover {
+  background-color: #e6e6e6;
+}
+
+.remove-button {
+  border: 1px solid #333;
+  background-color: #ff4d4d;
+  color: #333;
+}
+
+.remove-button:hover {
+  background-color: #ff3333;
+}
+
+</style>
    

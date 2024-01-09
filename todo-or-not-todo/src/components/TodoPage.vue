@@ -1,18 +1,18 @@
 <template>
   <div
-    class="bg-image"
+    class=""
     :style="{
       backgroundImage:
-        'url(https://mdbootstrap.com/img/Photos/Others/images/76.jpg)',
+        'url(https://i.imgur.com/I4IF27V.jpg)',
       height: '100vh',
       backgroundSize: 'cover',
       backgroundRepeat: 'no-repeat',
     }"
   >
     <LogoutButton />
-    <div class="container mx auto">
+    <div class="">
       <main>
-        <TodoCreator class="mt-5" />
+        <TodoCreator class="" />
         <TodoButtonGroup />
         <TodoTableActive>
           <TodoTableRow
@@ -88,19 +88,6 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.todo-form {
-  display: flex;
   justify-content: center;
-  align-items: center;
-  margin-bottom: 20px;
 }
-
-.logout-container {
-  position: absolute;
-  top: 10px; /* Adjust as needed */
-  right: 10px; /* Adjust as needed */
-}
-
 </style>
