@@ -88,7 +88,7 @@ export default {
   transform: translate(-50%, -50%);
   width: 50%;
   max-width: 500px;
-  background-color: white;
+  background-color: #ccc;
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
@@ -124,10 +124,13 @@ export default {
 
 .btn-confirm {
   background-color: #ff4d4d;
+  color:#333;
 }
 
 .btn-cancel {
-  background-color: #6c757d;
+  padding: 10px 25px;
+  background-color: #f5f5f5;
+  color: #333;
 }
 
 .btn-confirm:hover {
@@ -135,6 +138,6 @@ export default {
 }
 
 .btn-cancel:hover {
-  background-color: #545b62;
+  background-color: #e6e6e6;
 }
 </style>

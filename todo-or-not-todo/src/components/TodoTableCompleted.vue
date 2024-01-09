@@ -91,6 +91,12 @@ export default {
   max-height: 165px;
   overflow-y: auto;
   overflow-x: hidden;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.table-body-container::-webkit-scrollbar {
+    display: none;
 }
 
 

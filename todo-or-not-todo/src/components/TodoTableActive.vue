@@ -86,6 +86,13 @@ export default {
   max-height: 165px;
   overflow-y: auto;
   overflow-x: hidden;
+  -ms-overflow-style: none; /*Hide Scrollbar for IE & Edge */
+  scrollbar-width: none; /*Hide Scrollbar for Firefox*/
+}
+
+/*Hide Scrollbar for Chrome, Safari, Opera*/
+.table-body-container::-webkit-scrollbar {
+    display: none;
 }
 
 .styled-table {
