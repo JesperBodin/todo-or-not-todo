@@ -10,9 +10,8 @@
     }"
   >
     <LogoutButton />
-    <div class="">
       <main>
-        <TodoCreator class="" />
+        <TodoCreator />
         <TodoButtonGroup />
         <TodoTableActive>
           <TodoTableRow
@@ -37,7 +36,6 @@
         </TodoTableCompleted>
       </main>
     </div>
-  </div>
 </template>
 
 <script>

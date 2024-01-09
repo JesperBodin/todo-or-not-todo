@@ -103,7 +103,7 @@ export default {
 }
 
 .remove-button {
-  border: 1px solid #333;
+  border: 1px solid #ff4d1a;
   background-color: #ff4d4d;
   color: #333;
 }

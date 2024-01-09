@@ -1,5 +1,6 @@
 <template>
     <div class="logout-container">
+      <span class="username">Logged in as: {{ username }}</span>
       <button @click="logout" class="logout-button">Logout</button>
     </div>
 </template>
@@ -8,9 +9,16 @@
 
   export default {
 
+    data() {
+    return {
+      username: sessionStorage.getItem('username') || 'Anom',
+    };
+  },
+
     methods: {  
       logout() {
         sessionStorage.removeItem('jwtToken')
+        sessionStorage.removeItem('username');
         this.$router.push('/login');
       }
     },
@@ -18,6 +26,13 @@
   </script>
   
   <style scoped>
+
+.username {
+  margin-right: 10px;
+  font-weight: bold;
+  font-size: 16px;
+  color: #333; 
+}
 .logout-container {
   position: absolute;
   top: 10px; 
@@ -28,7 +43,7 @@
   padding: 0 10px;
   height: 40px;
   border-radius: 4px;
-  border: 1px solid #333;
+  border: 1px solid #ff4d1a;
   background-color: #ff4d4d;
   color: #333;
   cursor: pointer;

@@ -88,7 +88,7 @@ export default {
 }
 
 .table-body-container {
-  max-height: 165px;
+  max-height: 220px;
   overflow-y: auto;
   overflow-x: hidden;
   -ms-overflow-style: none;
