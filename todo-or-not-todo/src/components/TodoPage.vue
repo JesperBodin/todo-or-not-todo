@@ -9,7 +9,6 @@
       backgroundRepeat: 'no-repeat',
     }"
   >
-    <LogoutButton />
       <main>
         <TodoCreator />
         <TodoButtonGroup />
@@ -44,7 +43,6 @@ import TodoCreator from "./TodoCreator.vue";
 import TodoTableActive from "./TodoTableActive.vue";
 import TodoTableCompleted from "./TodoTableCompleted.vue";
 import TodoButtonGroup from "./TodoButtonGroup.vue";
-import LogoutButton from "./LogoutButton.vue";
 import { todoStore } from "../stores/TodoStore";
 import { mapActions, mapWritableState } from "pinia";
 
@@ -59,7 +57,6 @@ export default {
     TodoTableActive,
     TodoTableCompleted,
     TodoButtonGroup,
-    LogoutButton,
   },
 
   computed: {
