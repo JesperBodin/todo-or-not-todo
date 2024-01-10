@@ -1,6 +1,5 @@
 <template>
     <div class="logout-container">
-      <span class="username">Logged in as: {{ username }}</span>
       <button @click="logout" class="logout-button">Logout</button>
     </div>
 </template>
@@ -10,9 +9,7 @@
   export default {
 
     data() {
-    return {
-      username: sessionStorage.getItem('username') || 'Anom',
-    };
+    return {};
   },
 
     methods: {  

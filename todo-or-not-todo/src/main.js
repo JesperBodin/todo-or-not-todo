@@ -13,9 +13,9 @@ import "bootstrap-icons/font/bootstrap-icons.css"
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faPenToSquare, faPlus, faTrashCan } from '@fortawesome/free-solid-svg-icons'
+import { faPenToSquare, faPlus, faTrashCan, faAngleDoubleLeft, faSignOut } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faPenToSquare, faTrashCan, faPlus)
+library.add(faPenToSquare, faTrashCan, faPlus, faAngleDoubleLeft, faSignOut)
 
 const app = createApp(App);
 

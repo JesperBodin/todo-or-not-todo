@@ -7,13 +7,13 @@
               <h2 class="card-title">Sign Up</h2>
               <form @submit.prevent="signUp">
                 <div class="form-group">
-                  <input type="text" id="username" v-model="username" class="form-control" placeholder="Username" required>
+                  <input type="text" v-model="username" class="form-control" placeholder="Username" required>
                 </div>
                 <div class="mb-4">
-                  <input type="password" id="password" v-model="password" class="form-control" placeholder="Password" required>
+                  <input type="password" v-model="password" class="form-control" placeholder="Password" required>
                 </div>
                 <div class="mb-4">
-                  <input type="password" id="confirmPassword" v-model="confirmPassword" class="form-control" placeholder="Confirm Password" required>
+                  <input type="password" v-model="confirmPassword" class="form-control" placeholder="Confirm Password" required>
                 </div>
                 <button type="submit" class="btn-signup">Sign Up</button>
                 <div class="text-center">

@@ -7,10 +7,10 @@
               <h2 class="card-title">Login</h2>
               <form @submit.prevent="login">
                 <div class="form-group">
-                  <input type="text" id="username" v-model="username" class="form-control" placeholder="Username" required>
+                  <input type="text" v-model="username" class="form-control" placeholder="Username" required>
                 </div>
                 <div class="mb-4">
-                  <input type="password" id="password" v-model="password" class="form-control" placeholder="Password" required>
+                  <input type="password" v-model="password" class="form-control" placeholder="Password" required>
                 </div>
                 <button type="submit" class="btn btn-login">Login</button>
                 <div class="text-center">
@@ -26,6 +26,7 @@
   
   <script>
   import UserService from '../services/UserService';
+  import { setUsername } from './sidebar/state';
   
   export default {
     data() {
@@ -39,6 +40,7 @@
         try {
           const response = await UserService.login(this.username, this.password);
           console.log('Login successful:', response);
+          setUsername(this.username);
           this.$router.push('/todo');
         } catch (error) {
           console.error('Login failed:', error.message);
