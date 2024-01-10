@@ -35,15 +35,15 @@
     font-size: 48px;
     padding: 20px;
     margin-top: 20px;
-    color: black;
-    background-color: rgba(184, 176, 176, 1); 
+    color: #018281;
+    background-color: #ccc; 
     border-radius: 10px;
 }
 
 .content {
     padding: 40px;
-    color: black;
-    background-color: rgba(184, 176, 176, 1);
+    color: #018281;
+    background-color: #ccc;
     margin: 20px;
     border-radius: 10px;
     max-width: 800px;
