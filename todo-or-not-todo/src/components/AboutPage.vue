@@ -2,7 +2,7 @@
     <div class="bg-image">
         <div>
     <div class="header">
-        About us!
+        {{ $t("aboutus") }}
     </div>
     <div class="content">
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit,
@@ -36,14 +36,14 @@
     padding: 20px;
     margin-top: 20px;
     color: black;
-    background-color: rgba(184, 176, 176, 0.8); 
+    background-color: rgba(184, 176, 176, 1); 
     border-radius: 10px;
 }
 
 .content {
     padding: 40px;
     color: black;
-    background-color: rgba(184, 176, 176, 0.8);
+    background-color: rgba(184, 176, 176, 1);
     margin: 20px;
     border-radius: 10px;
     max-width: 800px;

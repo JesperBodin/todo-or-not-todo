@@ -7,9 +7,6 @@
     <button @click="hideDone = !hideDone" class="button">
       {{ $t(hideDone ? "showDone" : "hideDone") }}
     </button>
-    <button class="button" @click="toggleLocale">
-      {{ $t("language") }}
-    </button>
   </div>
   <ConfirmationModal :visible="confirmationVisible" @confirm="removeAll" @cancel="cancelRemoveAll"
     :title="$t('removeAllModalTitle')" :cancelButtonLabel="$t('cancelLabel')" :confirmButtonLabel="$t('confirmLabel')">
@@ -71,12 +68,6 @@ export default {
     sort() {
       this.sortByDate();
     },
-
-    toggleLocale() {
-      this.currentLocale = this.currentLocale === "en" ? "sv" : "en";
-      this.$i18n.locale = this.currentLocale;
-    },
-
   },
 };
 </script>

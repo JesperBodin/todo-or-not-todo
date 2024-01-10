@@ -15,7 +15,6 @@ export default {
 <template>
   <sidebarNav />
 <div :style="{ 'margin-left': SidebarWidth}">
-  <router-view />
 </div>
 </template>
 

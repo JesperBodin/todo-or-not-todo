@@ -8,11 +8,20 @@
         <span v-else class="username">{{ username }}</span>
       </h1>
 
-      <SidebarLink to="/todo" icon="fas fa-home">Home</SidebarLink>
-      <SidebarLink to="/register" icon="fas fa-pen">Register</SidebarLink>
-      <SidebarLink to="/about" icon="fa fa-info-circle">About</SidebarLink>
+      <SidebarLink to="/todo" icon="fas fa-home">{{ $t("home") }}</SidebarLink>
+      <SidebarLink to="/about" icon="fa fa-info-circle">{{ $t("about") }}</SidebarLink>
+      
+      <div class="sidebar-link" @click="toggleLocale">
+      <font-awesome-icon icon="language" class="icon" />
+      <Transition name="fade">
+      <span v-if="!isCollapsed">
+        {{ $t("language") }}
+      </span>
+        </Transition>
+      </div>
+
       <SidebarLink to="/login" icon="fa fa-sign-out" v-if="isLoggedIn" @click="logout" class="navbar-logout-link">
-        Logout</SidebarLink>
+        {{ $t("logout") }}</SidebarLink>
 
       <span 
         class="collapse-icon"
@@ -80,6 +89,10 @@ export default {
             sessionStorage.removeItem('username');
             this.$router.push('/login');
         },
+        toggleLocale() {
+            this.currentLocale = this.currentLocale === "en" ? "sv" : "en";
+            this.$i18n.locale = this.currentLocale;
+    },
     },
  };
 
@@ -133,6 +146,44 @@ export default {
 .username-first-letter {
     padding: 5px;
     
+}
+.sidebar-link {
+    display: flex;
+    align-items: center;
+
+    cursor: pointer;
+    position: relative;
+    font-weight: 400;
+    user-select: none;
+
+    margin: 0.1em 0;
+    padding: 0.4em;
+    border-radius: 0.25em;
+    height: 1.5em;
+
+    color: #018281;
+    text-decoration: none;
+}
+
+.sidebar-link:hover {
+    background-color: var(--sidebar-item-hover);
+}
+
+.sidebar-link.active {
+    background-color: var(--sidebar-item-active);
+}
+
+.sidebar-link .icon {
+    flex-shrink: 0;
+    width: 25px;
+    margin-right: 10px;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.3s;
+}
+.fade-enter, .fade-leave-to /* Initially hidden */ {
+  opacity: 0;
 }
 
 </style>

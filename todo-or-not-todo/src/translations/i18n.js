@@ -4,6 +4,10 @@ const i18n = createI18n({
   locale: "sv", // default locale
   messages: {
     en: {
+      home: "Home",
+      about: "About",
+      aboutus: "About us!",
+      logout: "Logout",
       todo: "Active Todos",
       add: "Add",
       removeAll: "Remove All",
@@ -28,6 +32,10 @@ const i18n = createI18n({
       removeModalText: "Do you want to delete this todo? This process cannot be undone.",
     },
     sv: {
+      home: "Hem",
+      about: "Om oss",
+      aboutus: "Om oss!",
+      logout: "Logga ut",
       todo: "Aktiva Todos",
       add: "Lägg till",
       removeAll: "Ta bort alla",
