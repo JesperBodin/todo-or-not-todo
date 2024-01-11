@@ -97,6 +97,7 @@ export default {
 
 .styled-table {
   width: 100%;
+  margin: auto;
   border-collapse: collapse;
   box-shadow: 0  0 10px rgba(0, 0, 0, 0.1);
 }
@@ -124,5 +125,16 @@ export default {
 .styled-table tbody tr:hover {
   background-color: #f0f0f0;
 }
+
+.styled-table th, .styled-table td {
+  text-align: center;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+.styled-table {
+  table-layout: fixed;
+  width: 75%;
+}
+
 
 </style>

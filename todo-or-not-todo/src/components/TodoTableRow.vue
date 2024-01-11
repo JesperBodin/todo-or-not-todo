@@ -145,5 +145,9 @@
     background-color: #e6e6e6;
   }
 
+  .td-button button {
+  width: 100%; /* Adjust as needed */
+}
+
   </style>
   
