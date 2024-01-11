@@ -11,8 +11,8 @@
       <SidebarLink to="/todo" icon="fas fa-home">{{ $t("home") }}</SidebarLink>
       <SidebarLink to="/about" icon="fa fa-info-circle">{{ $t("about") }}</SidebarLink>
       
-      <div class="sidebar-link" @click="toggleLocale">
-      <font-awesome-icon icon="language" class="icon" />
+      <div class="sidebar-language" @click="toggleLocale">
+      <font-awesome-icon icon="earth-americas" class="icon" />
       <Transition name="fade">
       <span v-if="!isCollapsed">
         {{ $t("language") }}
@@ -147,7 +147,7 @@ export default {
     padding: 5px;
     
 }
-.sidebar-link {
+.sidebar-language {
     display: flex;
     align-items: center;
 
@@ -165,25 +165,29 @@ export default {
     text-decoration: none;
 }
 
-.sidebar-link:hover {
+.sidebar-language:hover {
     background-color: var(--sidebar-item-hover);
 }
 
-.sidebar-link.active {
+.sidebar-language.active {
     background-color: var(--sidebar-item-active);
 }
 
-.sidebar-link .icon {
+.sidebar-language .icon {
     flex-shrink: 0;
     width: 25px;
-    margin-right: 10px;
+    margin-right: 15px;
+    margin-left: -5px;
 }
 
 .fade-enter-active, .fade-leave-active {
   transition: opacity 0.3s;
 }
-.fade-enter, .fade-leave-to /* Initially hidden */ {
+.fade-enter, .fade-leave-to {
   opacity: 0;
 }
 
+.navbar-logout-link {
+    color: #ff4d4d;
+}
 </style>
