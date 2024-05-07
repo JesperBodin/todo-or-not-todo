@@ -28,6 +28,18 @@ npm install --save-dev vite-plugin-env
 npm install bootstrap@v5.3.2
 ```
 
+## Install FontAwesome
+
+```sh
+npm i --save @fortawesome/fontawesome-svg-core
+```
+```sh
+npm i --save @fortawesome/free-solid-svg-icons
+```
+```sh
+npm i --save @fortawesome/vue-fontawesome@latest-3
+```
+
 ### Compile and Hot-Reload for Development
 
 ```sh

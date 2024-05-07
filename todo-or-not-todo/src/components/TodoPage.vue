@@ -1,18 +1,10 @@
 <template>
   <div
-    class="bg-image"
-    :style="{
-      backgroundImage:
-        'url(https://mdbootstrap.com/img/Photos/Others/images/76.jpg)',
-      height: '100vh',
-      backgroundSize: 'cover',
-      backgroundRepeat: 'no-repeat',
-    }"
+    class="background"
+
   >
-    <LogoutButton />
-    <div class="container mx auto">
       <main>
-        <TodoCreator class="mt-5" />
+        <TodoCreator />
         <TodoButtonGroup />
         <TodoTableActive>
           <TodoTableRow
@@ -37,7 +29,6 @@
         </TodoTableCompleted>
       </main>
     </div>
-  </div>
 </template>
 
 <script>
@@ -46,7 +37,6 @@ import TodoCreator from "./TodoCreator.vue";
 import TodoTableActive from "./TodoTableActive.vue";
 import TodoTableCompleted from "./TodoTableCompleted.vue";
 import TodoButtonGroup from "./TodoButtonGroup.vue";
-import LogoutButton from "./LogoutButton.vue";
 import { todoStore } from "../stores/TodoStore";
 import { mapActions, mapWritableState } from "pinia";
 
@@ -61,7 +51,6 @@ export default {
     TodoTableActive,
     TodoTableCompleted,
     TodoButtonGroup,
-    LogoutButton,
   },
 
   computed: {
@@ -88,19 +77,10 @@ main {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.todo-form {
-  display: flex;
   justify-content: center;
-  align-items: center;
-  margin-bottom: 20px;
 }
 
-.logout-container {
-  position: absolute;
-  top: 10px; /* Adjust as needed */
-  right: 10px; /* Adjust as needed */
+.background{
+  background-color: white;
 }
-
 </style>

@@ -18,6 +18,8 @@ class UserService extends ApiService {
     const token = response.accessToken;
     sessionStorage.setItem('jwtToken', token);
     this.setAuthorizationHeader(token)
+    
+    sessionStorage.setItem('username', username);
 
     return response;
   }

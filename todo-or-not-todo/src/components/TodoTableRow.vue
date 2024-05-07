@@ -1,11 +1,11 @@
 <template>
     <tr :class="{ editing: editing }">
       <td>
-        <div v-if="!editing" class="todo-cell due-date">
-          <h5 class="mb-0">{{ $t("deadline") }} {{ todo.dueDate }}</h5>
+        <div v-if="!editing" class="todo-cell">
+          <h5 class="">{{ $t("deadline") }} {{ todo.dueDate }}</h5>
         </div>
         <div v-if="editing" class="todo-date">
-          <input type="date" v-model="editedDate" @keydown.enter="saveEditedTodo" class="form-control" />
+          <input type="date" v-model="editedDate" @keydown.enter="saveEditedTodo" class="" />
         </div>
       </td>
       <td>
@@ -15,14 +15,14 @@
           </h5>
         </div>
         <div v-if="editing" class="todo-text">
-          <input v-model="editedText" @keydown.enter="saveEditedTodo" class="form-control" />
+          <input v-model="editedText" @keydown.enter="saveEditedTodo" class="" />
         </div>
       </td>
-      <td class="text-center">
-        <button @click="editTodo" class="editBtn btn btn-warning"><i class="bi bi-pencil-fill"></i></button>
+      <td class="td-button">
+        <button @click="editTodo" class=""><font-awesome-icon icon="pen-to-square" /></button>
       </td>
-      <td class="text-center">
-        <button @click="confirmationPopup" class="removeBtn btn btn-danger"><i class="bi bi-trash3"></i></button>
+      <td class="td-button">
+        <button @click="confirmationPopup" class=""><font-awesome-icon icon="trash-can" /></button>
       </td>
     </tr>
     <ConfirmationModal
@@ -105,5 +105,49 @@
   </script>
   
   <style scoped>
+
+  .todo-cell, .todo-text {
+    text-align: left;
+  }
+
+  td {
+  padding: 10px;
+  border: 1px solid #ccc;
+  background-color: white;
+}
+
+  .td-button {
+    text-align: center;
+  }
+
+  .editing {
+    background-color: #f0f0f0;
+  }
+
+  input[type="date"],
+  input[type="text"] {
+    height: 30px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  button {
+    border: none;
+    background-color: #f5f5f5;
+    cursor: pointer;
+    padding: 5px 10px;
+  }
+
+  button:hover {
+    background-color: #e6e6e6;
+  }
+
+  .td-button button {
+  width: 100%; /* Adjust as needed */
+}
+
   </style>
   

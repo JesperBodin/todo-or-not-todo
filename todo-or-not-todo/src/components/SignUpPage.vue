@@ -1,23 +1,23 @@
 <template>
-    <div class="bg-image d-flex align-items-center justify-content-center">
+    <div class="bg-image">
       <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-md-6">
-            <div class="card p-4" style="width: 100%;">
-              <h2 class="card-title text-center mb-4">Sign Up</h2>
+        <div class="row">
+          <div class="col">
+            <div class="card" style="width: 100%;">
+              <h2 class="card-title">Sign Up</h2>
               <form @submit.prevent="signUp">
-                <div class="mb-4">
-                  <input type="text" id="username" v-model="username" class="form-control form-control-xxl" placeholder="Username" required>
+                <div class="form-group">
+                  <input type="text" v-model="username" class="form-control" placeholder="Username" required>
                 </div>
                 <div class="mb-4">
-                  <input type="password" id="password" v-model="password" class="form-control form-control-xxl" placeholder="Password" required>
+                  <input type="password" v-model="password" class="form-control" placeholder="Password" required>
                 </div>
                 <div class="mb-4">
-                  <input type="password" id="confirmPassword" v-model="confirmPassword" class="form-control form-control-xxl" placeholder="Confirm Password" required>
+                  <input type="password" v-model="confirmPassword" class="form-control" placeholder="Confirm Password" required>
                 </div>
-                <button type="submit" class="btn btn-primary btn-lg w-100 mb-3">Sign Up</button>
+                <button type="submit" class="btn-signup">Sign Up</button>
                 <div class="text-center">
-                  <router-link to="/login" class="link-primary">Already have an account? Login</router-link>
+                  <router-link to="/login" class="link-login">Already have an account? Login</router-link>
                 </div>
               </form>
             </div>
@@ -59,29 +59,70 @@
   
   <style scoped>
   .bg-image {
-    background-image: url(https://mdbootstrap.com/img/Photos/Others/images/76.jpg);
+    background-image: url(https://i.imgur.com/I4IF27V.jpg);
     height: 100vh;
     background-size: cover;
     background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
-  .form-control-xxl {
-    padding: 1.75rem 0.75rem;
-    font-size: 1.5rem; 
+  .container {
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
   }
   
-  .btn-lg {
-    padding: 1rem 2rem;
-    font-size: 1.5rem; 
+  .card {
+    background: flex;
+    background-color: #ccc;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .card-title {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-control {
+    width: 100%;
+    padding: 10px;
+    background-color: #f5f5f5;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  .btn-signup {
+    width: 100%;
+    padding: 10px;
+    background-color: #f5f5f5;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+
+  .btn-signup:hover {
+    background-color: #e6e6e6;
+    color: white;
   }
   
-  .link-primary {
-    color: #007bff;
+  .link-login {
+    color: black;
     text-decoration: underline;
     cursor: pointer;
   }
   
-  .link-primary:hover {
-    color: #0056b3;
+  .link-login:hover {
+    color: #e6e6e6;
   }
   </style>
