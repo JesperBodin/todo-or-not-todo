@@ -1,13 +1,7 @@
 <template>
   <div
-    class=""
-    :style="{
-      backgroundImage:
-        'url(https://i.imgur.com/I4IF27V.jpg)',
-      height: '100vh',
-      backgroundSize: 'cover',
-      backgroundRepeat: 'no-repeat',
-    }"
+    class="background"
+
   >
       <main>
         <TodoCreator />
@@ -84,5 +78,9 @@ main {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.background{
+  background-color: white;
 }
 </style>
