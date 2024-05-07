@@ -30,6 +30,11 @@ const i18n = createI18n({
       removeAllModalText: "Do you want to delete all todos? This process cannot be undone.",
       removeModalTitle: "Are you sure?",
       removeModalText: "Do you want to delete this todo? This process cannot be undone.",
+      aboutPageText1: "Welcome to DailyDos! This application was developed as part of my degree project at IT- Högskolan.",
+      aboutPageText2: "The goal of this project was to create a user-friendly and efficient to-do application that helps users keep track of their daily tasks and goals.", 
+      aboutPageText3: "During the development of DailyDos, I used modern technologies such as Vue 3, Spring Boot, Spring Security, and MySQL. This has given me the opportunity to deepen my knowledge in both front-end and back-end development and to implement security mechanisms for web applications.",
+      aboutPageText4: "I hope you find DailyDos useful for organizing your daily activities and that it contributes to a more structured everyday life.",
+      aboutPageText5: "Thank you for using DailyDos!"
     },
     sv: {
       home: "Hem",
@@ -58,6 +63,12 @@ const i18n = createI18n({
       removeAllModalText: "Vill du verkligen ta bort alla todos? Detta kan ej bli ogjort.",
       removeModalTitle: "Är du säker?",
       removeModalText: "Vill du verkligen ta bort denna todo? Detta kan ej bli ogjort.",
+      aboutPageText1: "Välkommen till DailyDos! Denna applikation är utvecklad som en del av mitt examensarbete vid IT-högskolan.",
+      aboutPageText2: "Målet med detta projekt var att skapa en användarvänlig och effektiv todo-applikation som hjälper användare att hålla koll på sina dagliga uppgifter och mål.", 
+      aboutPageText3: "Under utvecklingen av DailyDos har jag använt moderna teknologier som Vue 3, Spring Boot, Spring Security och MySQL. Detta har gett mig möjligheten att fördjupa mina kunskaper i både frontend- och backend-utveckling samt att implementera säkerhetsmekanismer för webbapplikationer.",
+      aboutPageText4: "Jag hoppas att du finner DailyDos användbar för att organisera dina dagliga aktiviteter och att den bidrar till en mer strukturerad vardag.",
+      aboutPageText5: "Tack för att du använder DailyDos!"
+      
     },
   },
 });
