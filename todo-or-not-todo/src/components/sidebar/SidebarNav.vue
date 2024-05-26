@@ -1,41 +1,40 @@
 <template>
-
     <div v-if="shouldShowSidebar" class="sidebar" :style="{ width: computedSidebarWidth }">
-      <h1>
-        <span v-if="isCollapsed">
-          <div class="username-first-letter">{{ usernameFirstLetter }}</div>
-        </span>
-        <span v-else class="username">{{ username }}</span>
-      </h1>
-
-      <SidebarLink to="/todo" icon="fas fa-home">{{ $t("home") }}</SidebarLink>
-      <SidebarLink to="/about" icon="fa fa-info-circle">{{ $t("about") }}</SidebarLink>
-      
-      <div class="sidebar-language" @click="toggleLocale">
-      <font-awesome-icon icon="earth-americas" class="icon" />
-      <Transition name="fade">
-      <span v-if="!isCollapsed">
-        {{ $t("language") }}
-      </span>
-        </Transition>
+      <div class="sidebar-top">
+        <h1>
+          <span v-if="isCollapsed">
+            <div class="username-first-letter">{{ usernameFirstLetter }}</div>
+          </span>
+          <span v-else class="username">{{ username }}</span>
+        </h1>
+        <SidebarLink to="/todo" icon="fas fa-home">{{ $t("home") }}</SidebarLink>
+        <SidebarLink to="/about" icon="fa fa-info-circle">{{ $t("about") }}</SidebarLink>
       </div>
-
-      <SidebarLink to="/login" icon="fa fa-sign-out" v-if="isLoggedIn" @click="logout" class="navbar-logout-link">
-        {{ $t("logout") }}</SidebarLink>
-
-      <span 
-        class="collapse-icon"
-        :class="{ 'rotate-180': isCollapsed }"
-        @click="toggleSidebarMethod"
-      >
-        <font-awesome-icon icon="angle-double-left" />
-      </span>
+      <div class="sidebar-bottom">
+        <div class="sidebar-language" @click="toggleLocale">
+          <font-awesome-icon icon="earth-americas" class="icon" />
+          <Transition name="fade">
+            <span v-if="!isCollapsed">
+              {{ $t("language") }}
+            </span>
+          </Transition>
+        </div>
+        <SidebarLink to="/login" icon="fa fa-sign-out" v-if="isLoggedIn" @click="logout" class="navbar-logout-link">
+          {{ $t("logout") }}
+        </SidebarLink>
+        <span 
+          class="collapse-icon"
+          :class="{ 'rotate-180': isCollapsed }"
+          @click="toggleSidebarMethod"
+        >
+          <font-awesome-icon icon="angle-double-left" />
+        </span>
+      </div>
     </div>
-
     <div :style="mainContentStyle" class="main-content">
       <router-view />
     </div>
-</template>
+  </template>
 
 <script>
 import SidebarLink from './SidebarLink.vue';
@@ -109,25 +108,36 @@ export default {
 <style scoped>
 
 .sidebar {
-    color: #018281;
-    background-color:var(--sidebar-bg-color);
+  color: #018281;
+  background-color: var(--sidebar-bg-color);
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  padding: 0.1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Positions children at top and bottom */
+  transition: transform 0.3s ease;
+}
 
-    float:left;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    padding-left: 0.1em;
+.sidebar-top, .sidebar-bottom {
+  display: flex;
+  flex-direction: column;
+}
 
-    transition: 0.3s ease;
-
-    display: flex;
-    flex-direction: column;
+.sidebar-bottom {
+  align-items: flex-start;
+  padding-bottom: 30px; 
+  margin-top: -20px;
+  margin-bottom: 10px;
 }
 
 .collapse-icon {
+    align-self: left;
     position: absolute;
+    margin-left: -5px;
     bottom: 0;
     padding: 0.75em;
     color:#018281;
